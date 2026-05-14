@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: "Upcoming legal events, seminars, and community outreach from Armooh-Williams, PLLC.",
 };
 
-export const revalidate = 0; // Ensure fresh data on every request
+export const revalidate = 60; // ISR: revalidate in background every 60 seconds
 
 async function getPublishedEvents() {
   try {

@@ -23,7 +23,7 @@ async function getPublishedPosts() {
   }
 }
 
-export const revalidate = 0; // ensure fresh data on every request
+export const revalidate = 60; // ISR: revalidate in background every 60 seconds
 
 export default async function NewsPage() {
   const allPosts = await getPublishedPosts();

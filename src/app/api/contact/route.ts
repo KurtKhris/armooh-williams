@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { contactSubmissions } from "@/lib/schema";
+import { sendEmail } from "@/lib/email/mailer";
+import { contactAdminEmail } from "@/lib/email/templates/contact-admin";
+import { contactUserEmail } from "@/lib/email/templates/contact-user";
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,6 +31,22 @@ export async function POST(req: NextRequest) {
         preferredDate: preferredDate || null,
       })
       .returning();
+
+    // Fire emails (non-blocking — don't fail the response if email fails)
+    const firmEmail = process.env.FIRM_EMAIL ?? "info@armooh-williams.com";
+
+    Promise.allSettled([
+      sendEmail({
+        to: firmEmail,
+        subject: `New Contact Inquiry — ${firstName} ${lastName}`,
+        html: contactAdminEmail({ firstName, lastName, email, phone, practiceArea, message }),
+      }),
+      sendEmail({
+        to: email,
+        subject: "We've received your message — Armooh-Williams, PLLC",
+        html: contactUserEmail({ firstName, practiceArea }),
+      }),
+    ]).catch(console.error);
 
     return NextResponse.json({ success: true, id: submission.id }, { status: 201 });
   } catch (error) {

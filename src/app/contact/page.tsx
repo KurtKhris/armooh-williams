@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Get in touch with Armooh-Williams, PLLC. Schedule a confidential legal consultation today.",
 };
 
-export const revalidate = 0; // ensure fresh data on every request
+export const revalidate = 60; // ISR: revalidate in background every 60 seconds
 
 export default async function ContactPage() {
   const settings = await db.select().from(siteSettings).catch(() => []);

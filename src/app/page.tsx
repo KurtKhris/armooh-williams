@@ -13,7 +13,7 @@ import { practiceAreas, posts } from "@/lib/schema";
 import { eq, asc, desc } from "drizzle-orm";
 import Stats from "@/components/sections/Stats";
 
-export const revalidate = 0; // ensure fresh data on every request
+export const revalidate = 60; // ISR: revalidate in background every 60 seconds
 
 export default async function HomePage() {
   const areas = await db
