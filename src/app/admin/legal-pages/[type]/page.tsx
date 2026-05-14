@@ -21,7 +21,10 @@ export default async function LegalPageEditorPage({ params }: { params: Promise<
   let page = { type: legalType, title: TYPE_LABELS[legalType], content: "" };
   try {
     const [existing] = await db.select().from(legalPages).where(eq(legalPages.type, legalType));
-    if (existing) page = existing;
+    if (existing) {
+      page.title = existing.title;
+      page.content = existing.content;
+    }
   } catch {
     // table may not exist yet; use defaults
   }
