@@ -122,7 +122,7 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-25 pb-20 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Left column */}
@@ -143,7 +143,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15 }}
-              className="font-heading text-5xl sm:text-6xl font-semibold text-white leading-[1.08] mb-3 min-h-[140px] sm:min-h-[160px]"
+              className="font-heading text-5xl sm:text-6xl font-semibold text-white leading-[1.08] min-h-[140px] sm:min-h-[160px]"
             >
               <TypewriterText />
             </motion.h1>
