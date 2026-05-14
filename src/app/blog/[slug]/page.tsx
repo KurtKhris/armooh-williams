@@ -1,4 +1,4 @@
-﻿import Navbar from "@/components/layout/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { WhatsAppButton, ScrollToTop, Toast } from "@/components/ui/FloatingWidgets";
 import ConsultationModal from "@/components/sections/ConsultationModal";
@@ -96,7 +96,12 @@ export default async function BlogPostPage({ params }: Props) {
                   <div className="p-5 rounded-2xl bg-linear-to-br from-teal-800 to-teal-950 border border-white/10">
                     <h3 className="font-heading text-lg font-semibold text-white mb-3">Need Legal Advice?</h3>
                     <p className="font-body text-white/60 text-sm mb-4">Schedule a confidential consultation with our attorneys.</p>
-                    <Link href="/contact" className="block w-full text-center py-2.5 bg-coral-500 hover:bg-coral-600 text-white font-body font-semibold text-sm rounded-xl transition-colors">
+                    <Link 
+                      href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center py-2.5 bg-coral-500 hover:bg-coral-600 text-white font-body font-semibold text-sm rounded-xl transition-colors"
+                    >
                       Book Consultation
                     </Link>
                   </div>

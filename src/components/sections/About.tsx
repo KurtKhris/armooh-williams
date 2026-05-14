@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { CheckCircle2, ArrowRight } from "lucide-react";
@@ -97,7 +97,7 @@ export default function About() {
 
 
             <Link
-              href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k=?gv=true" target="_blank"
+              href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k=" target="_blank"
               className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-teal-800 hover:bg-teal-700 text-white font-body font-semibold rounded-2xl transition-colors duration-200 group"
             >
               Book a Consultation
