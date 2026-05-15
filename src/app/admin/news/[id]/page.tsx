@@ -13,9 +13,21 @@ async function getPost(id: string) {
   return post ?? null;
 }
 
+async function getCategories(): Promise<string[]> {
+  try {
+    const rows = await db
+      .selectDistinct({ category: posts.category })
+      .from(posts)
+      .orderBy(posts.category);
+    return rows.map((r) => r.category).filter(Boolean) as string[];
+  } catch {
+    return [];
+  }
+}
+
 export default async function EditArticlePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const post = await getPost(id);
+  const [post, categories] = await Promise.all([getPost(id), getCategories()]);
   if (!post) notFound();
 
   const serialized: Post = {
@@ -25,5 +37,5 @@ export default async function EditArticlePage({ params }: { params: Promise<{ id
     updatedAt: post.updatedAt.toISOString(),
   };
 
-  return <PostEditor mode="edit" post={serialized} />;
+  return <PostEditor mode="edit" post={serialized} categories={categories} />;
 }

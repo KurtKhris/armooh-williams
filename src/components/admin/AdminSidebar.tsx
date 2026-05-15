@@ -2,13 +2,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Newspaper, Calendar, Mail, LogOut, Plus, ExternalLink, Settings, Globe, Scale, FileText, Star, Users } from "lucide-react";
+import { LayoutDashboard, Newspaper, Calendar, Mail, LogOut, Plus, ExternalLink, Settings, Globe, Scale, FileText, Star, Users, Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin/dashboard" },
   { icon: Newspaper, label: "News", href: "/admin/news" },
+  { icon: Tag, label: "Categories", href: "/admin/categories" },
   { icon: Calendar, label: "Events", href: "/admin/events" },
   { icon: Users, label: "Event RSVPs", href: "/admin/event-registrations" },
   { icon: Scale, label: "Capabilities", href: "/admin/practice-areas" },
@@ -29,9 +30,9 @@ export default function AdminSidebar() {
   };
 
   return (
-    <aside className="w-64 shrink-0 flex flex-col bg-[#071a1f] border-r border-white/8 overflow-y-auto scrollbar-admin">
+    <aside className="w-64 shrink-0 flex flex-col h-screen bg-[#071a1f] border-r border-white/8">
       {/* Logo */}
-      <div className="p-5 border-b border-white/8">
+      <div className="p-5 border-b border-white/8 shrink-0">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-coral-500/30 bg-white shrink-0">
             <Image src="/logo.png" alt="Armooh-Williams, PLLC" width={40} height={40} className="w-full h-full object-contain p-0.5" />
@@ -42,27 +43,8 @@ export default function AdminSidebar() {
           </div>
         </div>
       </div>
-
-      {/* Quick create shortcuts */}
-      <div className="px-4 pt-4 space-y-2">
-        <Link
-          href="/admin/news/new"
-          className="flex items-center gap-2 w-full px-4 py-2.5 bg-coral-500/20 hover:bg-coral-500/30 border border-coral-500/30 rounded-xl text-coral-500 font-body text-sm font-semibold transition-colors duration-200"
-        >
-          <Plus size={15} />
-          New Article
-        </Link>
-        <Link
-          href="/admin/events/new"
-          className="flex items-center gap-2 w-full px-4 py-2.5 bg-teal-800/20 hover:bg-teal-800/30 border border-teal-800/30 rounded-xl text-teal-300 font-body text-sm font-semibold transition-colors duration-200"
-        >
-          <Plus size={15} />
-          New Event
-        </Link>
-      </div>
-
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 overflow-y-auto scrollbar-admin p-4 space-y-1">
         {navItems.map(({ icon: Icon, label, href }) => {
           const active = pathname.startsWith(href);
           return (
@@ -90,7 +72,7 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Footer actions */}
-      <div className="p-4 border-t border-white/8 space-y-2">
+      <div className="p-4 border-t border-white/8 space-y-2 shrink-0">
         <Link
           href="/"
           target="_blank"

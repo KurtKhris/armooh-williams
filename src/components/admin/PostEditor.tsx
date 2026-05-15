@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Save, Eye, EyeOff, Trash2, ArrowLeft } from "lucide-react";
-import { slugify, BLOG_CATEGORIES } from "@/lib/utils";
+import { slugify } from "@/lib/utils";
 import type { Post } from "@/types";
 import Link from "next/link";
 import { useAppDispatch } from "@/store/hooks";
@@ -15,14 +15,22 @@ import ConfirmModal from "@/components/admin/ConfirmModal";
 interface PostEditorProps {
   post?: Post;
   mode: "create" | "edit";
+  categories?: string[];
 }
 
-export default function PostEditor({ post, mode }: PostEditorProps) {
+export default function PostEditor({ post, mode, categories = [] }: PostEditorProps) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  
+  // Category management
+  const [localCategories, setLocalCategories] = useState<string[]>(categories);
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [addingCategoryLoader, setAddingCategoryLoader] = useState(false);
+
   const [form, setForm] = useState({
     title: post?.title ?? "",
     slug: post?.slug ?? "",
@@ -68,6 +76,44 @@ export default function PostEditor({ post, mode }: PostEditorProps) {
       }
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleAddCategory = async () => {
+    if (!newCategoryName.trim()) return;
+    setAddingCategoryLoader(true);
+    try {
+      const res = await fetch("/api/categories", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newCategoryName.trim() }),
+      });
+      
+      if (res.ok) {
+        const newCat = await res.json();
+        setLocalCategories((prev) => [...prev, newCat.name]);
+        setForm((prev) => ({ ...prev, category: newCat.name }));
+        setNewCategoryName("");
+        setIsAddingCategory(false);
+        dispatch(showToast({ message: "Category added", type: "success" }));
+      } else {
+        const data = await res.json();
+        // If it already exists, just use it
+        if (data.error === "Category already exists") {
+          if (!localCategories.includes(newCategoryName.trim())) {
+             setLocalCategories((prev) => [...prev, newCategoryName.trim()]);
+          }
+          setForm((prev) => ({ ...prev, category: newCategoryName.trim() }));
+          setNewCategoryName("");
+          setIsAddingCategory(false);
+        } else {
+          dispatch(showToast({ message: data.error || "Failed to create category", type: "error" }));
+        }
+      }
+    } catch {
+      dispatch(showToast({ message: "Network error", type: "error" }));
+    } finally {
+      setAddingCategoryLoader(false);
     }
   };
 
@@ -201,20 +247,71 @@ export default function PostEditor({ post, mode }: PostEditorProps) {
               </div>
 
               <div className="p-5 rounded-2xl bg-white/5 border border-white/8">
-                <label className="block font-body text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">Category</label>
-                <select
-                  name="category"
-                  value={form.category}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2.5 bg-white/8 border border-white/10 rounded-xl text-white font-body text-sm focus:outline-none focus:border-coral-500/40 transition-colors"
-                  style={{ colorScheme: "dark" }}
-                >
-                  {BLOG_CATEGORIES.filter((c) => c !== "All").map((c) => (
-                    <option key={c} value={c} className="bg-[#071a1f] text-white">
-                      {c}
-                    </option>
-                  ))}
-                </select>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block font-body text-xs font-semibold text-white/40 uppercase tracking-widest">Category</label>
+                  {!isAddingCategory && (
+                    <button
+                      type="button"
+                      onClick={() => setIsAddingCategory(true)}
+                      className="text-coral-500 hover:text-coral-400 font-body text-xs font-semibold"
+                    >
+                      + New Category
+                    </button>
+                  )}
+                </div>
+
+                {isAddingCategory ? (
+                  <div className="space-y-2">
+                    <input
+                      value={newCategoryName}
+                      onChange={(e) => setNewCategoryName(e.target.value)}
+                      placeholder="New category name..."
+                      className="w-full px-3 py-2.5 bg-white/8 border border-white/10 rounded-xl text-white placeholder:text-white/30 font-body text-sm focus:outline-none focus:border-coral-500/40 transition-colors"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          handleAddCategory();
+                        }
+                      }}
+                    />
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={handleAddCategory}
+                        disabled={addingCategoryLoader || !newCategoryName.trim()}
+                        className="flex-1 px-4 py-2.5 bg-coral-500 hover:bg-coral-600 disabled:opacity-50 text-white font-body text-sm font-semibold rounded-xl transition-colors shrink-0"
+                      >
+                        {addingCategoryLoader ? "..." : "Add"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setIsAddingCategory(false)}
+                        className="flex-1 px-3 py-2.5 bg-white/8 hover:bg-white/12 text-white/70 font-body text-sm font-semibold rounded-xl transition-colors shrink-0"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <select
+                    name="category"
+                    value={form.category}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2.5 bg-white/8 border border-white/10 rounded-xl text-white font-body text-sm focus:outline-none focus:border-coral-500/40 transition-colors"
+                    style={{ colorScheme: "dark" }}
+                  >
+                    {!localCategories.includes(form.category) && (
+                      <option value={form.category} className="bg-[#071a1f] text-white">
+                        {form.category}
+                      </option>
+                    )}
+                    {localCategories.map((c) => (
+                      <option key={c} value={c} className="bg-[#071a1f] text-white">
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                )}
               </div>
 
               <div className="p-5 rounded-2xl bg-white/5 border border-white/8">

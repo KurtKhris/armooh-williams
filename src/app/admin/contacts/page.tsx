@@ -1,8 +1,9 @@
-﻿import { db } from "@/lib/db";
+import { db } from "@/lib/db";
 import { contactSubmissions } from "@/lib/schema";
 import { desc } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
 import { Mail, Phone, Calendar } from "lucide-react";
+import DeleteContactButton from "@/components/admin/DeleteContactButton";
 
 async function getContacts() {
   try {
@@ -70,8 +71,9 @@ export default async function ContactsPage() {
                     )}
                   </div>
 
-                  <div className="shrink-0 text-right">
-                    <p className="font-body text-xs text-white/35">{formatDate(c.createdAt.toISOString())}</p>
+                  <div className="shrink-0 text-right flex flex-col items-end justify-between">
+                    <p className="font-body text-xs text-white/35 mb-4">{formatDate(c.createdAt.toISOString())}</p>
+                    <DeleteContactButton id={c.id} />
                   </div>
                 </div>
               </div>

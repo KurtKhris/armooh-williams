@@ -7,7 +7,7 @@ import { posts } from "@/lib/schema";
 import { eq, desc } from "drizzle-orm";
 import Link from "next/link";
 import { BookOpen, Clock, Tag, ArrowRight } from "lucide-react";
-import { formatDate, truncate, BLOG_CATEGORIES } from "@/lib/utils";
+import { formatDate, truncate } from "@/lib/utils";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -29,6 +29,9 @@ export default async function NewsPage() {
   const allPosts = await getPublishedPosts();
   const featured = allPosts[0];
   const rest = allPosts.slice(1);
+
+  // Derive categories dynamically from actual posts
+  const categories = ["All", ...Array.from(new Set(allPosts.map((p) => p.category).filter(Boolean)))];
 
   return (
     <>
@@ -92,7 +95,7 @@ export default async function NewsPage() {
               {/* Category filter label */}
               {rest.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-8">
-                  {BLOG_CATEGORIES.map((cat) => (
+                  {categories.map((cat) => (
                     <span key={cat} className="px-4 py-1.5 rounded-full bg-brand-gray/60 text-brand-dark/60 font-body text-xs font-semibold border border-brand-gray cursor-default">
                       {cat}
                     </span>

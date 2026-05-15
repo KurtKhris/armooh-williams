@@ -14,6 +14,13 @@ export const posts = pgTable("posts", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+export const postCategories = pgTable("post_categories", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: varchar("name", { length: 100 }).notNull().unique(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+
 export const contactSubmissions = pgTable("contact_submissions", {
   id: uuid("id").primaryKey().defaultRandom(),
   firstName: varchar("first_name", { length: 100 }).notNull(),
@@ -81,6 +88,8 @@ export const siteSettings = pgTable("site_settings", {
 
 export type Post = typeof posts.$inferSelect;
 export type NewPost = typeof posts.$inferInsert;
+export type PostCategory = typeof postCategories.$inferSelect;
+export type NewPostCategory = typeof postCategories.$inferInsert;
 export type ContactSubmission = typeof contactSubmissions.$inferSelect;
 export type NewContactSubmission = typeof contactSubmissions.$inferInsert;
 export type Event = typeof events.$inferSelect;

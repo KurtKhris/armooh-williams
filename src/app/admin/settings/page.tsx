@@ -35,6 +35,40 @@ export default function AdminSettingsPage() {
       .catch(() => {});
   }, []);
 
+  const getPasswordStrength = (pass: string) => {
+    if (!pass) return 0;
+    let score = 0;
+    if (pass.length >= 8) score += 1;
+    if (/[A-Z]/.test(pass)) score += 1;
+    if (/[0-9]/.test(pass)) score += 1;
+    if (/[^A-Za-z0-9]/.test(pass)) score += 1;
+    return score;
+  };
+
+  const strength = getPasswordStrength(newPassword);
+  
+  const getStrengthColor = (level: number) => {
+    if (strength < level) return "bg-white/10";
+    switch (strength) {
+      case 1: return "bg-red-500";
+      case 2: return "bg-orange-500";
+      case 3: return "bg-yellow-500";
+      case 4: return "bg-green-500";
+      default: return "bg-white/10";
+    }
+  };
+
+  const getStrengthLabel = () => {
+    if (!newPassword) return "Password strength";
+    switch (strength) {
+      case 1: return "Weak";
+      case 2: return "Fair";
+      case 3: return "Good";
+      case 4: return "Strong";
+      default: return "Very Weak";
+    }
+  };
+
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -45,7 +79,7 @@ export default function AdminSettingsPage() {
 
     setSaving(true);
     try {
-      const body: Record<string, string> = { name, email };
+      const body: Record<string, string> = { name };
       if (newPassword) {
         body.currentPassword = currentPassword;
         body.newPassword = newPassword;
@@ -60,7 +94,7 @@ export default function AdminSettingsPage() {
       const data = await res.json();
 
       if (res.ok) {
-        setProfile((prev) => prev ? { ...prev, name: data.name, email: data.email } : prev);
+        setProfile((prev) => prev ? { ...prev, name: data.name } : prev);
         setCurrentPassword("");
         setNewPassword("");
         setConfirmPassword("");
@@ -120,9 +154,9 @@ export default function AdminSettingsPage() {
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@armooh-williams.com"
-                  className="w-full px-4 py-3 bg-white/8 border border-white/10 rounded-xl text-white placeholder:text-white/25 font-body text-sm focus:outline-none focus:border-coral-500/50 transition-colors"
+                  disabled
+                  readOnly
+                  className="w-full px-4 py-3 bg-white/5 border border-white/5 rounded-xl text-white/50 font-body text-sm cursor-not-allowed"
                 />
               </div>
             </div>
@@ -164,6 +198,38 @@ export default function AdminSettingsPage() {
                     {showNew ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
                 </div>
+                
+                {/* Password Strength Meter */}
+                {newPassword && (
+                  <div className="mt-3">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="font-body text-[10px] uppercase tracking-wider text-white/40">Strength</span>
+                      <span className={`font-body text-xs font-semibold ${
+                        strength === 1 ? "text-red-400" :
+                        strength === 2 ? "text-orange-400" :
+                        strength === 3 ? "text-yellow-400" :
+                        strength === 4 ? "text-green-400" : "text-white/40"
+                      }`}>
+                        {getStrengthLabel()}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      {[1, 2, 3, 4].map((level) => (
+                        <div key={level} className="h-1.5 flex-1 rounded-full bg-white/10 overflow-hidden">
+                          <motion.div
+                            initial={false}
+                            animate={{ width: strength >= level ? "100%" : "0%" }}
+                            className={`h-full ${getStrengthColor(level)}`}
+                            transition={{ duration: 0.3 }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <p className="font-body text-[11px] text-white/35 mt-2">
+                      Use 8+ characters with a mix of letters, numbers & symbols.
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div>
