@@ -101,13 +101,13 @@ export default async function InsightsPage() {
 
                       {/* Sliding content block */}
                       <div className="absolute bottom-0 left-0 right-0">
-                        <div className="p-8 translate-y-[calc(100%-7rem)] group-hover:translate-y-0 transition-transform duration-400 ease-out">
+                        <div className="p-8 translate-y-[calc(100%-9rem)] group-hover:translate-y-0 transition-transform duration-400 ease-out">
                           <h3 className="font-heading text-4xl font-semibold text-white leading-tight mb-3">
                             {cat.name}
                           </h3>
                           <div className="w-8 h-0.5 bg-coral-500" />
                           {cat.description && (
-                            <p className="font-body text-white/75 text-base leading-relaxed mt-10">
+                            <p className="hidden sm:block font-body text-white/75 text-base leading-relaxed mt-16">
                               {cat.description}
                             </p>
                           )}

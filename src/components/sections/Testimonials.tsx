@@ -81,7 +81,7 @@ export default function Testimonials() {
             </motion.div>
 
             {/* Carousel */}
-            <div className="relative overflow-hidden h-80 sm:h-96">
+            <div className="relative overflow-hidden min-h-80 sm:min-h-96">
               <AnimatePresence custom={direction} mode="wait">
                 <motion.div
                   key={String(t.id)}
@@ -91,7 +91,7 @@ export default function Testimonials() {
                   animate="center"
                   exit="exit"
                   transition={{ duration: 0.45, ease: "easeInOut" }}
-                  className="relative p-8 sm:p-10 rounded-3xl bg-linear-to-br from-teal-800 to-teal-950 border border-white/10 shadow-luxury-lg overflow-hidden h-full"
+                  className="relative p-8 sm:p-10 rounded-3xl bg-linear-to-br from-teal-800 to-teal-950 border border-white/10 shadow-luxury-lg overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-coral-500/8 blur-[80px] pointer-events-none" />
                   <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-white/4 blur-[60px] pointer-events-none" />
@@ -99,14 +99,14 @@ export default function Testimonials() {
                     <Quote size={80} className="text-white" />
                   </div>
 
-                  <div className="relative flex flex-col h-full">
+                  <div className="relative flex flex-col">
                     <div className="flex gap-1 mb-6">
                       {Array.from({ length: t.rating }).map((_, i) => (
                         <Star key={i} size={16} className="text-coral-500" fill="currentColor" />
                       ))}
                     </div>
 
-                    <blockquote className="font-heading text-xl sm:text-2xl text-white leading-relaxed mb-8 font-light italic flex-1">
+                    <blockquote className="font-heading text-xl sm:text-2xl text-white leading-relaxed mb-8 font-light italic">
                       &ldquo;{t.content}&rdquo;
                     </blockquote>
 
