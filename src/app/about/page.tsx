@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function AboutPage() {
-  redirect("/principal-attorney");
+  redirect("/about/the-firm");
 }

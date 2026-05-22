@@ -19,36 +19,41 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Armooh-Williams, PLLC | Welcome to Your Law Firm",
+    default: "Armooh-Williams, PLLC | Strategic Legal Counsel for a Global World",
     template: "%s | Armooh-Williams, PLLC",
   },
   description:
-    "Corporate Immigration & White-Collar Defense for Global Businesses, Executives, and Cross-Border Professionals",
+    "Strategic Legal Counsel for a Global World. Armooh-Williams, PLLC advises businesses, executives, investors, and private clients on global mobility & immigration, white collar defense & sanctions, and trust & corporate services.",
   keywords: [
     "law firm",
-    "corporate law",
-    "litigation",
+    "global mobility",
     "immigration law",
-    "family law",
-    "real estate law",
+    "white collar defense",
+    "sanctions",
+    "trust and corporate services",
     "international law",
     "PLLC",
-    "attorney",
-    "legal counsel",
+    "Washington DC attorney",
+    "cross-border legal counsel",
+    "Joyce Williams attorney",
   ],
   authors: [{ name: "Armooh-Williams, PLLC" }],
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: "Armooh-Williams, PLLC",
-    title: "Armooh-Williams, PLLC | Welcome to Your Law Firm",
+    title: "Armooh-Williams, PLLC | Strategic Legal Counsel for a Global World",
     description:
-      "Strategic legal excellence for modern clients. Corporate law, litigation, immigration, and more.",
+      "Global Reach. Strategic Protection. Trusted Counsel. Corporate immigration, white collar defense, and trust & corporate services.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Armooh-Williams, PLLC",
-    description: "Strategic legal excellence for modern clients.",
+    description: "Global Reach. Strategic Protection. Trusted Counsel.",
   },
   robots: {
     index: true,

@@ -56,8 +56,8 @@ export default function AdminLoginPage() {
       >
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white ring-2 ring-coral-500/40 mb-4 overflow-hidden">
-            <Image src="/logo.png" alt="Armooh-Williams, PLLC" width={80} height={80} className="w-full h-full object-contain p-1" />
+          <div className="inline-block bg-white px-4 py-2 rounded-xl mb-4">
+            <Image src="/aw_logo.png" alt="Armooh-Williams, PLLC" width={140} height={56} className="h-14 w-auto object-contain" />
           </div>
           <h1 className="font-heading text-3xl font-semibold text-white mb-1">Admin Portal</h1>
           <p className="font-body text-white/50 text-sm">Armooh-Williams, PLLC</p>

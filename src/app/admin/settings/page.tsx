@@ -50,10 +50,10 @@ export default function AdminSettingsPage() {
   const getStrengthColor = (level: number) => {
     if (strength < level) return "bg-white/10";
     switch (strength) {
-      case 1: return "bg-red-500";
-      case 2: return "bg-orange-500";
-      case 3: return "bg-yellow-500";
-      case 4: return "bg-green-500";
+      case 1: return "bg-coral-500";
+      case 2: return "bg-brand-gold";
+      case 3: return "bg-teal-400";
+      case 4: return "bg-teal-500";
       default: return "bg-white/10";
     }
   };
@@ -205,10 +205,10 @@ export default function AdminSettingsPage() {
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="font-body text-[10px] uppercase tracking-wider text-white/40">Strength</span>
                       <span className={`font-body text-xs font-semibold ${
-                        strength === 1 ? "text-red-400" :
-                        strength === 2 ? "text-orange-400" :
-                        strength === 3 ? "text-yellow-400" :
-                        strength === 4 ? "text-green-400" : "text-white/40"
+                        strength === 1 ? "text-coral-500" :
+                        strength === 2 ? "text-brand-gold" :
+                        strength === 3 ? "text-teal-400" :
+                        strength === 4 ? "text-teal-400" : "text-white/40"
                       }`}>
                         {getStrengthLabel()}
                       </span>
@@ -241,12 +241,12 @@ export default function AdminSettingsPage() {
                   placeholder="••••••••"
                   className={`w-full px-4 py-3 bg-white/8 border rounded-xl text-white placeholder:text-white/25 font-body text-sm focus:outline-none transition-colors ${
                     confirmPassword && confirmPassword !== newPassword
-                      ? "border-red-500/50 focus:border-red-500/70"
+                      ? "border-coral-500/50 focus:border-coral-500/70"
                       : "border-white/10 focus:border-coral-500/50"
                   }`}
                 />
                 {confirmPassword && confirmPassword !== newPassword && (
-                  <p className="font-body text-red-400 text-xs mt-1.5">Passwords do not match</p>
+                  <p className="font-body text-coral-500 text-xs mt-1.5">Passwords do not match</p>
                 )}
               </div>
             </div>

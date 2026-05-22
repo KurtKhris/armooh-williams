@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
-import { posts } from "@/lib/schema";
-import { eq } from "drizzle-orm";
+import { posts, postCategories } from "@/lib/schema";
+import { eq, asc } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import PostEditor from "@/components/admin/PostEditor";
 import type { Post } from "@/types";
@@ -16,10 +16,10 @@ async function getPost(id: string) {
 async function getCategories(): Promise<string[]> {
   try {
     const rows = await db
-      .selectDistinct({ category: posts.category })
-      .from(posts)
-      .orderBy(posts.category);
-    return rows.map((r) => r.category).filter(Boolean) as string[];
+      .select({ name: postCategories.name })
+      .from(postCategories)
+      .orderBy(asc(postCategories.name));
+    return rows.map((r) => r.name);
   } catch {
     return [];
   }

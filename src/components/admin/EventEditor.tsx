@@ -130,7 +130,7 @@ export default function EventEditor({ event, mode }: EventEditorProps) {
               <span className="font-body text-sm text-white/60">Publish</span>
               <div
                 onClick={() => setForm((prev) => ({ ...prev, published: !prev.published }))}
-                className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${form.published ? "bg-emerald-500" : "bg-white/20"}`}
+                className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${form.published ? "bg-teal-500" : "bg-white/20"}`}
               >
                 <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 ${form.published ? "translate-x-5" : "translate-x-0.5"}`} />
               </div>
@@ -140,7 +140,7 @@ export default function EventEditor({ event, mode }: EventEditorProps) {
               <button
                 onClick={() => setShowDeleteModal(true)}
                 disabled={deleting}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 font-body text-sm transition-colors"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-coral-500/10 hover:bg-coral-500/20 border border-coral-500/20 text-coral-500 font-body text-sm transition-colors"
               >
                 <Trash2 size={14} />
                 Delete
@@ -189,12 +189,12 @@ export default function EventEditor({ event, mode }: EventEditorProps) {
                 <h3 className="font-heading text-white text-base font-semibold mb-4">Publishing</h3>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 font-body text-sm text-white/60">
-                    {form.published ? <Eye size={14} className="text-emerald-400" /> : <EyeOff size={14} className="text-amber-400" />}
+                    {form.published ? <Eye size={14} className="text-teal-400" /> : <EyeOff size={14} className="text-brand-gold" />}
                     {form.published ? "Published" : "Draft"}
                   </div>
                   <div
                     onClick={() => setForm((prev) => ({ ...prev, published: !prev.published }))}
-                    className={`relative w-10 h-5 rounded-full cursor-pointer transition-colors duration-200 ${form.published ? "bg-emerald-500" : "bg-white/20"}`}
+                    className={`relative w-10 h-5 rounded-full cursor-pointer transition-colors duration-200 ${form.published ? "bg-teal-500" : "bg-white/20"}`}
                   >
                     <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 ${form.published ? "translate-x-5" : "translate-x-0.5"}`} />
                   </div>

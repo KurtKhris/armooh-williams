@@ -1,129 +1,126 @@
 "use client";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
-import { ArrowRight, Clock, Tag, BookOpen } from "lucide-react";
-import type { Post } from "@/types";
-import { formatDate, truncate } from "@/lib/utils";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import { slugify } from "@/lib/utils";
 
-const categoryColors: Record<string, string> = {
-  "Corporate Law": "bg-teal-800/10 text-teal-800",
-  "Immigration": "bg-emerald-50 text-emerald-700",
-  "Litigation": "bg-coral-500/10 text-coral-500",
-  "Real Estate": "bg-amber-50 text-amber-700",
-  "Family Law": "bg-rose-50 text-rose-700",
-  "International Law": "bg-blue-50 text-blue-700",
-  "Legal Insights": "bg-purple-50 text-purple-700",
-  "General": "bg-gray-50 text-gray-600",
+type Category = {
+  id: string;
+  name: string;
+  description: string | null;
+  imageUrl: string | null;
 };
 
-function PostCard({ post, i }: { post: Post; i: number }) {
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
-  const colorClass = categoryColors[post.category] ?? categoryColors["General"];
+const GRADIENTS = [
+  "from-teal-950 via-teal-900 to-teal-800",
+  "from-teal-800 via-teal-900 to-teal-950",
+  "from-teal-950 via-teal-800 to-teal-900",
+  "from-teal-900 via-teal-950 to-teal-800",
+];
 
+function CategoryCard({ cat, index }: { cat: Category; index: number }) {
   return (
-    <motion.article
-      ref={ref}
-      initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: i * 0.1 }}
-      className="group"
+    <Link
+      href={`/insights/${slugify(cat.name)}`}
+      className="relative block overflow-hidden group"
     >
-      <Link href={`/news/${post.slug}`} className="block h-full">
-        <div className="h-full rounded-3xl bg-white border border-brand-gray hover:border-coral-500/25 shadow-luxury hover:shadow-luxury-lg transition-all duration-400 overflow-hidden">
-          {/* Image */}
-          <div className="relative h-48 bg-linear-to-br from-teal-800 to-teal-950 overflow-hidden">
-            {post.imageUrl ? (
-              <img
-                src={post.imageUrl}
-                alt={post.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <BookOpen size={40} className="text-white/20" />
-              </div>
-            )}
-            <div className="absolute inset-0 bg-linear-to-t from-teal-950/60 to-transparent" />
+      <div className="relative h-80 lg:h-96">
+        {cat.imageUrl ? (
+          <Image
+            src={cat.imageUrl}
+            alt={cat.name}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        ) : (
+          <div className={`absolute inset-0 bg-linear-to-br ${GRADIENTS[index % 4]}`} />
+        )}
 
-            {/* Category badge */}
-            <div className="absolute top-4 left-4">
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-body font-semibold ${colorClass} bg-white shadow-sm`}>
-                <Tag size={10} />
-                {post.category}
-              </span>
-            </div>
-          </div>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-teal-950/40" />
 
-          {/* Content */}
-          <div className="p-6">
-            <div className="flex items-center gap-3 text-brand-dark/40 font-body text-xs mb-3">
-              <Clock size={11} />
-              <span>{formatDate(post.createdAt)}</span>
-              <span>·</span>
-              <span>{post.authorName}</span>
-            </div>
-
-            <h3 className="font-heading text-xl font-semibold text-brand-dark mb-3 group-hover:text-teal-800 transition-colors duration-200 leading-snug">
-              {post.title}
+        {/* Sliding content block */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <div className="p-6 sm:p-8 translate-y-[calc(100%-6rem)] sm:translate-y-[calc(100%-7rem)] group-hover:translate-y-0 transition-transform duration-400 ease-out">
+            <h3 className="font-heading text-3xl sm:text-4xl font-semibold text-white leading-tight mb-3">
+              {cat.name}
             </h3>
-
-            <p className="font-body text-sm text-brand-dark/60 leading-relaxed mb-5">
-              {truncate(post.excerpt || post.content, 120)}
-            </p>
-
-            <div className="flex items-center gap-1.5 text-coral-500 font-body text-sm font-semibold group-hover:gap-2.5 transition-all duration-200">
-              Read Article
-              <ArrowRight size={14} />
+            <div className="w-8 h-0.5 bg-coral-500" />
+            {cat.description && (
+              <p className="font-body text-white/80 text-base leading-relaxed mt-10">
+                {cat.description}
+              </p>
+            )}
+            <div className="flex items-center gap-1.5 mt-4 text-coral-500 font-body text-xs font-semibold uppercase tracking-widest">
+              Explore <ArrowRight size={12} />
             </div>
           </div>
         </div>
-      </Link>
-    </motion.article>
+      </div>
+    </Link>
   );
 }
 
-export default function BlogPreview({ posts }: { posts?: Post[] }) {
+export default function BlogPreview() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
-  
-  if (!posts || posts.length === 0) return null;
-  
-  const displayPosts = posts.slice(0, 3);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((r) => r.json())
+      .then((data) => { if (Array.isArray(data)) setCategories(data); })
+      .catch(() => {});
+  }, []);
+
+  if (categories.length === 0) return null;
+
+  // Show at most 4 in a 2×2 grid
+  const display = categories.slice(0, 4);
 
   return (
-    <section id="news" className="section-padding bg-brand-gray/20 relative overflow-hidden">
+    <section id="insights" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-14"
+          className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-10"
         >
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-800/8 border border-teal-800/15 mb-5">
-              <BookOpen size={13} className="text-teal-800" />
-              <span className="text-teal-800 text-xs font-body font-semibold tracking-[0.15em] uppercase">Legal Insights</span>
+            <div className="flex items-center gap-4 mb-5">
+              <span className="gold-rule" />
+              <span className="text-brand-slate text-xs font-body font-semibold tracking-[0.18em] uppercase">Insights</span>
             </div>
             <h2 className="font-heading text-4xl sm:text-5xl font-semibold text-brand-dark">
-              Latest{" "}
-              <span className="text-coral-500">News</span>
+              Our <span className="text-teal-800">Channels</span>
             </h2>
           </div>
           <Link
-            href="/news"
+            href="/insights"
             className="flex items-center gap-2 text-teal-800 hover:text-coral-500 font-body font-semibold text-sm transition-colors duration-200 group shrink-0"
           >
-            View All News
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
+            All Insights
+            <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
           </Link>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayPosts.map((post, i) => (
-            <PostCard key={post.id} post={post} i={i} />
+        {/* 2×2 grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="grid sm:grid-cols-2 gap-1"
+        >
+          {display.map((cat, i) => (
+            <CategoryCard key={cat.id} cat={cat} index={i} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

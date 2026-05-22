@@ -36,7 +36,7 @@ export default function PostEditor({ post, mode, categories = [] }: PostEditorPr
     slug: post?.slug ?? "",
     excerpt: post?.excerpt ?? "",
     content: post?.content ?? "",
-    category: post?.category ?? "General",
+    category: post?.category ?? (categories.length > 0 ? categories[0] : ""),
     imageUrl: post?.imageUrl ?? "",
     published: post?.published ?? false,
     authorName: post?.authorName ?? "Armooh-Williams, PLLC",
@@ -151,7 +151,7 @@ export default function PostEditor({ post, mode, categories = [] }: PostEditorPr
               <span className="font-body text-sm text-white/60">Publish</span>
               <div
                 onClick={() => setForm((prev) => ({ ...prev, published: !prev.published }))}
-                className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${form.published ? "bg-emerald-500" : "bg-white/20"}`}
+                className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${form.published ? "bg-teal-500" : "bg-white/20"}`}
               >
                 <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 ${form.published ? "translate-x-5" : "translate-x-0.5"}`} />
               </div>
@@ -161,7 +161,7 @@ export default function PostEditor({ post, mode, categories = [] }: PostEditorPr
               <button
                 onClick={() => setShowDeleteModal(true)}
                 disabled={deleting}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 font-body text-sm transition-colors"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-coral-500/10 hover:bg-coral-500/20 border border-coral-500/20 text-coral-500 font-body text-sm transition-colors"
               >
                 <Trash2 size={14} />
                 Delete
@@ -222,12 +222,12 @@ export default function PostEditor({ post, mode, categories = [] }: PostEditorPr
                 <h3 className="font-heading text-white text-base font-semibold mb-4">Publishing</h3>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 font-body text-sm text-white/60">
-                    {form.published ? <Eye size={14} className="text-emerald-400" /> : <EyeOff size={14} className="text-amber-400" />}
+                    {form.published ? <Eye size={14} className="text-teal-400" /> : <EyeOff size={14} className="text-brand-gold" />}
                     {form.published ? "Published" : "Draft"}
                   </div>
                   <div
                     onClick={() => setForm((prev) => ({ ...prev, published: !prev.published }))}
-                    className={`relative w-10 h-5 rounded-full cursor-pointer transition-colors duration-200 ${form.published ? "bg-emerald-500" : "bg-white/20"}`}
+                    className={`relative w-10 h-5 rounded-full cursor-pointer transition-colors duration-200 ${form.published ? "bg-teal-500" : "bg-white/20"}`}
                   >
                     <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 ${form.published ? "translate-x-5" : "translate-x-0.5"}`} />
                   </div>
@@ -300,16 +300,27 @@ export default function PostEditor({ post, mode, categories = [] }: PostEditorPr
                     className="w-full px-3 py-2.5 bg-white/8 border border-white/10 rounded-xl text-white font-body text-sm focus:outline-none focus:border-coral-500/40 transition-colors"
                     style={{ colorScheme: "dark" }}
                   >
-                    {!localCategories.includes(form.category) && (
+                    {!form.category && (
+                      <option value="" disabled className="bg-[#071a1f] text-white/50">
+                        — Select a category —
+                      </option>
+                    )}
+                    {form.category && !localCategories.includes(form.category) && (
                       <option value={form.category} className="bg-[#071a1f] text-white">
                         {form.category}
                       </option>
                     )}
-                    {localCategories.map((c) => (
-                      <option key={c} value={c} className="bg-[#071a1f] text-white">
-                        {c}
+                    {localCategories.length === 0 ? (
+                      <option value="" disabled className="bg-[#071a1f] text-white/40">
+                        No categories — create one below
                       </option>
-                    ))}
+                    ) : (
+                      localCategories.map((c) => (
+                        <option key={c} value={c} className="bg-[#071a1f] text-white">
+                          {c}
+                        </option>
+                      ))
+                    )}
                   </select>
                 )}
               </div>

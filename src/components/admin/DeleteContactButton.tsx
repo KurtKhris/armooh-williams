@@ -31,7 +31,7 @@ export default function DeleteContactButton({ id }: { id: string }) {
     <>
       <button
         onClick={() => setDeleting(true)}
-        className="p-2 text-white/40 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+        className="p-2 text-white/40 hover:text-coral-500 hover:bg-coral-500/10 rounded-lg transition-colors"
         title="Delete Inquiry"
       >
         <Trash2 size={16} />

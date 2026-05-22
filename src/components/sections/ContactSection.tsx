@@ -146,8 +146,8 @@ export default function ContactSection({
             <div className="p-8 rounded-3xl bg-white border border-brand-gray shadow-luxury">
               {submitted ? (
                 <div className="text-center py-16">
-                  <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle2 size={32} className="text-green-500" />
+                  <div className="w-16 h-16 rounded-full bg-teal-50 flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle2 size={32} className="text-teal-600" />
                   </div>
                   <h3 className="font-heading text-2xl text-brand-dark font-semibold mb-2">Message Received</h3>
                   <p className="text-brand-dark/60 font-body text-sm">We&apos;ll get back to you within 24 hours.</p>

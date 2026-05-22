@@ -47,15 +47,12 @@ export async function PUT(
     }
 
     const { id } = await params;
-    const { name } = await req.json();
+    const { name, description, imageUrl } = await req.json();
 
     if (!name?.trim()) {
       return NextResponse.json({ error: "Category name is required" }, { status: 400 });
     }
 
-    const trimmedName = name.trim();
-
-    // Check if category exists
     const existing = await db
       .select()
       .from(postCategories)
@@ -66,10 +63,9 @@ export async function PUT(
       return NextResponse.json({ error: "Category not found" }, { status: 404 });
     }
 
-    // Update the category
     const [updatedCategory] = await db
       .update(postCategories)
-      .set({ name: trimmedName })
+      .set({ name: name.trim(), description: description ?? null, imageUrl: imageUrl ?? null })
       .where(eq(postCategories.id, id))
       .returning();
 

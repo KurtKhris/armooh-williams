@@ -68,7 +68,7 @@ export default async function PostsPage() {
                       {formatDate(post.createdAt.toISOString())}
                     </td>
                     <td className="px-4 py-4">
-                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium ${post.published ? "bg-emerald-400/15 text-emerald-400" : "bg-amber-400/15 text-amber-400"}`}>
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium ${post.published ? "bg-teal-500/15 text-teal-400" : "bg-brand-gold/15 text-brand-gold"}`}>
                         {post.published ? <Eye size={10} /> : <EyeOff size={10} />}
                         {post.published ? "Published" : "Draft"}
                       </span>

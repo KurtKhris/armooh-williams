@@ -68,15 +68,15 @@ export function ScrollToTop() {
 }
 
 const toastIcons = {
-  success: <CheckCircle2 size={18} className="text-green-400" />,
-  error: <AlertCircle size={18} className="text-red-400" />,
-  info: <Info size={18} className="text-blue-400" />,
+  success: <CheckCircle2 size={18} className="text-teal-400" />,
+  error: <AlertCircle size={18} className="text-coral-500" />,
+  info: <Info size={18} className="text-teal-300" />,
 };
 
 const toastColors = {
-  success: "border-green-500/30 bg-teal-950",
-  error: "border-red-500/30 bg-teal-950",
-  info: "border-blue-500/30 bg-teal-950",
+  success: "border-teal-500/30 bg-teal-950",
+  error: "border-coral-500/30 bg-teal-950",
+  info: "border-teal-400/30 bg-teal-950",
 };
 
 export function Toast() {

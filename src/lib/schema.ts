@@ -17,6 +17,9 @@ export const posts = pgTable("posts", {
 export const postCategories = pgTable("post_categories", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: varchar("name", { length: 100 }).notNull().unique(),
+  description: text("description"),
+  imageUrl: text("image_url"),
+  sortOrder: integer("sort_order").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -73,6 +76,7 @@ export const practiceAreas = pgTable("practice_areas", {
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   description: text("description").notNull().default(""),
   icon: varchar("icon", { length: 50 }).notNull().default("scale"),
+  imageUrl: text("image_url"),
   longDescription: text("long_description").notNull().default(""),
   sortOrder: integer("sort_order").notNull().default(0),
   published: boolean("published").notNull().default(true),

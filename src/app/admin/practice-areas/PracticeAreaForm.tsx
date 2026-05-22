@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Save, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import RichTextEditor from "@/components/admin/RichTextEditor";
+import ImageUpload from "@/components/admin/ImageUpload";
 import { useAppDispatch } from "@/store/hooks";
 import { showToast } from "@/store/uiSlice";
 import type { PracticeArea } from "@/lib/schema";
@@ -29,6 +30,7 @@ type FormData = {
   description: string;
   longDescription: string;
   icon: string;
+  imageUrl: string;
   sortOrder: number;
   published: boolean;
 };
@@ -43,6 +45,7 @@ export default function PracticeAreaForm({ initial, id }: { initial?: PracticeAr
     description: initial?.description ?? "",
     longDescription: initial?.longDescription ?? "",
     icon: initial?.icon ?? "scale",
+    imageUrl: initial?.imageUrl ?? "",
     sortOrder: initial?.sortOrder ?? 0,
     published: initial?.published ?? true,
   });
@@ -154,11 +157,22 @@ export default function PracticeAreaForm({ initial, id }: { initial?: PracticeAr
                 </div>
                 <div
                   onClick={() => set("published", !form.published)}
-                  className={`relative w-10 h-5 rounded-full cursor-pointer transition-colors duration-200 ${form.published ? "bg-emerald-500" : "bg-white/20"}`}
+                  className={`relative w-10 h-5 rounded-full cursor-pointer transition-colors duration-200 ${form.published ? "bg-teal-500" : "bg-white/20"}`}
                 >
                   <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 ${form.published ? "translate-x-5" : "translate-x-0.5"}`} />
                 </div>
               </div>
+            </div>
+
+            {/* Cover image */}
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/8 space-y-3">
+              <div>
+                <h2 className="font-heading text-white text-sm font-semibold">Cover Image</h2>
+                <p className="font-body text-white/40 text-xs mt-1">
+                  Shown in the homepage capabilities section. Recommended: 800×600px landscape.
+                </p>
+              </div>
+              <ImageUpload value={form.imageUrl} onChange={(url) => set("imageUrl", url)} />
             </div>
 
             {/* Full page content */}

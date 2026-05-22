@@ -1,7 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { WhatsAppButton, ScrollToTop, Toast } from "@/components/ui/FloatingWidgets";
-import ConsultationModal from "@/components/sections/ConsultationModal";
 import { db } from "@/lib/db";
 import { posts } from "@/lib/schema";
 import { eq } from "drizzle-orm";
@@ -9,6 +8,7 @@ import { notFound } from "next/navigation";
 import { formatDate } from "@/lib/utils";
 import { Clock, Tag, ArrowLeft, User } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 interface Props {
@@ -45,8 +45,8 @@ export default async function NewsArticlePage({ params }: Props) {
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="pt-28 pb-12 gradient-hero">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="pt-18 gradient-hero">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
             <Link href="/news" className="inline-flex items-center gap-2 text-white/50 hover:text-white font-body text-sm transition-colors mb-8">
               <ArrowLeft size={15} /> Back to News
             </Link>
@@ -73,8 +73,8 @@ export default async function NewsArticlePage({ params }: Props) {
         {/* Featured image */}
         {post.imageUrl && (
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-0">
-            <div className="rounded-3xl overflow-hidden h-72 sm:h-96">
-              <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover" />
+            <div className="relative rounded-3xl overflow-hidden h-72 sm:h-96">
+              <Image src={post.imageUrl} alt={post.title} fill className="object-cover" sizes="(max-width: 896px) 100vw, 896px" />
             </div>
           </div>
         )}
@@ -134,7 +134,6 @@ export default async function NewsArticlePage({ params }: Props) {
         </section>
       </main>
       <Footer />
-      <ConsultationModal />
       <WhatsAppButton />
       <ScrollToTop />
       <Toast />

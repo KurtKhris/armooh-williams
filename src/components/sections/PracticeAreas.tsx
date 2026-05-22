@@ -2,121 +2,189 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
-import {
-  Building2, Gavel, Globe, Heart, Home, Earth, Lightbulb, Scale,
-  Briefcase, Users, Shield, FileText, ArrowUpRight,
-} from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import type { PracticeArea } from "@/lib/schema";
 
-const iconMap: Record<string, React.ElementType> = {
-  building: Building2,
-  gavel: Gavel,
-  globe: Globe,
-  heart: Heart,
-  home: Home,
-  earth: Earth,
-  lightbulb: Lightbulb,
-  scale: Scale,
-  briefcase: Briefcase,
-  users: Users,
-  shield: Shield,
-  "file-text": FileText,
-};
-
-const gradients = [
-  "from-teal-800 to-teal-700",
-  "from-coral-500 to-coral-700",
-  "from-teal-700 to-teal-800",
-  "from-coral-700 to-coral-500",
-  "from-teal-800 to-teal-500",
-  "from-coral-500 to-coral-400",
-  "from-teal-950 to-teal-800",
-  "from-coral-600 to-coral-500",
+const FALLBACK_AREAS = [
+  {
+    title: "Global Mobility & Immigration",
+    description:
+      "Strategic immigration solutions for international businesses, executives, investors, and global talent — enabling seamless cross-border movement with confidence.",
+    slug: "global-mobility-immigration",
+    imageUrl: null,
+  },
+  {
+    title: "White Collar Defense & Sanctions",
+    description:
+      "Sophisticated representation in government investigations, compliance matters, sanctions issues, and regulatory disputes — protecting your interests with precision and discretion.",
+    slug: "white-collar-defense-sanctions",
+    imageUrl: null,
+  },
+  {
+    title: "Trust & Corporate Services",
+    description:
+      "Tailored structuring, governance, and wealth preservation solutions designed for long-term stability, asset protection, and generational growth.",
+    slug: "trust-corporate-services",
+    imageUrl: null,
+  },
 ];
+
+const FALLBACK_GRADIENTS = [
+  "from-teal-950 via-teal-900 to-teal-800",
+  "from-teal-800 via-teal-900 to-teal-950",
+  "from-teal-950 via-teal-800 to-teal-900",
+];
+
+function AreaRow({
+  area,
+  index,
+}: {
+  area: { title: string; description: string; slug: string; imageUrl?: string | null };
+  index: number;
+}) {
+  const { ref, inView } = useInView({ threshold: 0.12, triggerOnce: true });
+  const isEven = index % 2 === 0;
+  const num = String(index + 1).padStart(2, "0");
+
+  const textSide = (
+    <motion.div
+      initial={{ opacity: 0, x: isEven ? -28 : 28 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.85, delay: 0.1 }}
+      className={`flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-20 py-16 lg:py-20 ${isEven ? "bg-white" : "bg-brand-ivory"}`}
+    >
+      <span className="font-heading text-8xl font-bold text-teal-800/6 leading-none -mb-4 select-none">
+        {num}
+      </span>
+      <div className="flex items-center gap-3 mb-5">
+        <span className="gold-rule" />
+        <span className="text-brand-slate text-xs font-body font-semibold tracking-[0.18em] uppercase">
+          Capability
+        </span>
+      </div>
+      <h3 className="font-heading text-3xl sm:text-4xl font-semibold text-brand-dark leading-[1.1] mb-5">
+        {area.title}
+      </h3>
+      <p className="font-body text-brand-slate text-base leading-relaxed mb-8 max-w-md">
+        {area.description}
+      </p>
+      <Link
+        href={`/capabilities/${area.slug}`}
+        className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-teal-800 hover:bg-teal-700 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200 group w-fit"
+      >
+        Learn More
+        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-200" />
+      </Link>
+    </motion.div>
+  );
+
+  const imageSide = (
+    <motion.div
+      initial={{ opacity: 0, x: isEven ? 28 : -28 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.85 }}
+      className="relative min-h-80 lg:min-h-0 lg:h-full overflow-hidden"
+    >
+      {area.imageUrl ? (
+        <Image
+          src={area.imageUrl}
+          alt={area.title}
+          fill
+          className="object-cover"
+          sizes="(max-width: 1024px) 100vw, 50vw"
+        />
+      ) : (
+        <div
+          className={`absolute inset-0 bg-linear-to-br ${FALLBACK_GRADIENTS[index % 3]}`}
+        >
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="font-heading text-[9rem] font-bold text-white/5 select-none leading-none">
+              {num}
+            </span>
+          </div>
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px)`,
+              backgroundSize: "28px 28px",
+            }}
+          />
+        </div>
+      )}
+      <div className="absolute inset-0 bg-teal-950/15" />
+    </motion.div>
+  );
+
+  return (
+    <div ref={ref} className="grid lg:grid-cols-2">
+      {isEven ? (
+        <>
+          {textSide}
+          {imageSide}
+        </>
+      ) : (
+        <>
+          <div className="order-2 lg:order-1 h-full">{imageSide}</div>
+          <div className="order-1 lg:order-2">{textSide}</div>
+        </>
+      )}
+    </div>
+  );
+}
 
 export default function PracticeAreas({ areas }: { areas: PracticeArea[] }) {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
-  return (
-    <section id="practice-areas" className="section-padding bg-brand-gray/30 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-coral-500/30 to-transparent" />
+  const displayAreas =
+    areas.length > 0
+      ? areas.map((a) => ({
+          title: a.title,
+          description: a.description,
+          slug: a.slug,
+          imageUrl: a.imageUrl,
+        }))
+      : FALLBACK_AREAS;
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
+  return (
+    <section id="practice-areas" className="bg-white overflow-x-hidden">
+      {/* Section header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 lg:pt-28 pb-14">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-800/8 border border-teal-800/15 mb-6">
-            <Scale size={13} className="text-teal-800" />
-            <span className="text-teal-800 text-xs font-body font-semibold tracking-[0.15em] uppercase">
-              Capabilities
-            </span>
-          </div>
-          <p className="text-brand-dark/60 font-body text-lg max-w-2xl mx-auto leading-relaxed">
-            Corporate Immigration & White-Collar Defense for Global Businesses, Executives, and Cross-Border Professionals
-          </p>
-        </motion.div>
-
-        {areas.length === 0 ? (
-          <p className="text-center text-brand-dark/40 font-body py-10">Capabilities coming soon.</p>
-        ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-5">
-            {areas.map((area, i) => {
-              const Icon = iconMap[area.icon] ?? Scale;
-              const gradient = gradients[i % gradients.length];
-              return (
-                <motion.div
-                  key={area.id}
-                  initial={{ opacity: 0, y: 32 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: i * 0.08 }}
-                >
-                  <Link href={`/capabilities/${area.slug}`} className="block h-full group">
-                    <div className="h-full relative p-6 rounded-3xl bg-white border border-brand-gray hover:border-transparent shadow-luxury hover:shadow-luxury-lg transition-all duration-400 overflow-hidden">
-                      <div className={`absolute inset-0 bg-linear-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-400`} />
-                      <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none ring-1 ring-white/20" />
-                      <div className="relative z-10">
-                        <div className={`w-12 h-12 rounded-2xl bg-linear-to-br ${gradient} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                          <Icon size={22} className="text-white" />
-                        </div>
-                        <h3 className="font-heading text-xl font-semibold text-brand-dark group-hover:text-white mb-3 transition-colors duration-300">
-                          {area.title}
-                        </h3>
-                        <p className="font-body text-sm text-brand-dark/60 group-hover:text-white/75 leading-relaxed mb-5 transition-colors duration-300">
-                          {area.description}
-                        </p>
-                        <div className="flex items-center gap-1.5 text-coral-500 group-hover:text-white/80 font-body text-sm font-semibold transition-colors duration-300">
-                          Learn More
-                          <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Bottom CTA */}
-        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.6 }}
-          className="text-center mt-12"
+          transition={{ duration: 0.7 }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6"
         >
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-4 mb-5">
+              <span className="gold-rule" />
+              <span className="text-brand-slate text-xs font-body font-semibold tracking-[0.18em] uppercase">
+                Our Practice Areas
+              </span>
+            </div>
+            <h2 className="font-heading text-4xl sm:text-5xl font-semibold text-brand-dark leading-[1.1]">
+              Capabilities
+            </h2>
+          </div>
           <Link
             href="/capabilities"
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 border-2 border-teal-800 text-teal-800 hover:bg-teal-800 hover:text-white font-body font-semibold rounded-2xl transition-all duration-200 group"
+            className="inline-flex items-center gap-2 text-teal-800 hover:text-coral-500 font-body font-semibold text-sm transition-colors duration-200 group shrink-0"
           >
-            View All Capabilities
-            <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+            All Capabilities
+            <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </Link>
         </motion.div>
+      </div>
+
+      {/* Alternating rows */}
+      <div className="border-t border-brand-gray">
+        {displayAreas.map((area, i) => (
+          <div key={area.slug} className={i < displayAreas.length - 1 ? "border-b border-brand-gray" : ""}>
+            <AreaRow area={area} index={i} />
+          </div>
+        ))}
       </div>
     </section>
   );

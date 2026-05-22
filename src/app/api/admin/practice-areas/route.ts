@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     if (!adminId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const body = await req.json();
-    const { title, description, longDescription, icon, sortOrder, published } = body;
+    const { title, description, longDescription, icon, imageUrl, sortOrder, published } = body;
 
     if (!title?.trim()) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 });
@@ -42,6 +42,7 @@ export async function POST(req: NextRequest) {
         description: description ?? "",
         longDescription: longDescription ?? "",
         icon: icon ?? "scale",
+        imageUrl: imageUrl ?? null,
         sortOrder: sortOrder ?? 0,
         published: published ?? true,
       })

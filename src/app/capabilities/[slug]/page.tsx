@@ -5,13 +5,17 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { WhatsAppButton, ScrollToTop, Toast } from "@/components/ui/FloatingWidgets";
-import ConsultationModal from "@/components/sections/ConsultationModal";
 import {
   Building2, Gavel, Globe, Heart, Home, Earth, Lightbulb, Scale,
   Briefcase, Users, Shield, FileText, ArrowLeft, ArrowRight, Calendar,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+
+const TEAL_BLUR = `data:image/svg+xml;base64,${Buffer.from(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect fill="#0B3440" width="1" height="1"/></svg>'
+).toString("base64")}`;
 
 const iconMap: Record<string, React.ElementType> = {
   building: Building2, gavel: Gavel, globe: Globe, heart: Heart,
@@ -58,34 +62,47 @@ export default async function CapabilityPage({ params }: { params: Promise<{ slu
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="pt-32 pb-16 gradient-hero relative overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full bg-coral-500/8 blur-[120px]" />
-            <div className="absolute bottom-1/4 -right-24 w-80 h-80 rounded-full bg-teal-500/10 blur-[100px]" />
+        <section className="pt-18 relative overflow-hidden">
+          {/* Background — image if available, else gradient */}
+          <div className="absolute inset-0">
+            {area.imageUrl ? (
+              <Image
+                src={area.imageUrl}
+                alt={area.title}
+                fill
+                priority
+                placeholder="blur"
+                blurDataURL={TEAL_BLUR}
+                className="object-cover object-center"
+                sizes="100vw"
+              />
+            ) : (
+              <div className="absolute inset-0 gradient-hero" />
+            )}
+            <div className="absolute inset-0 bg-teal-950/50" />
+            <div className="absolute inset-0 bg-linear-to-t from-teal-950/85 via-teal-950/25 to-transparent" />
           </div>
-          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Link
-              href="/capabilities"
-              className="inline-flex items-center gap-2 text-white/50 hover:text-white font-body text-sm mb-8 transition-colors group"
-            >
-              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform duration-200" />
-              All Capabilities
-            </Link>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-5 mb-6">
-              <div className="w-16 h-16 rounded-2xl bg-coral-500/15 border border-coral-500/25 flex items-center justify-center shrink-0">
-                <Icon size={28} className="text-coral-500" />
-              </div>
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-coral-500/15 border border-coral-500/25 mb-2">
-                  <span className="text-coral-500 text-xs font-body font-semibold tracking-[0.15em] uppercase">Capability</span>
-                </div>
-                <h1 className="font-heading text-4xl sm:text-5xl font-semibold text-white leading-tight">
-                  {area.title}
-                </h1>
-              </div>
+
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+            <div className="flex items-center gap-4 mb-6">
+              <Link
+                href="/capabilities"
+                className="inline-flex items-center gap-1.5 text-white/50 hover:text-white font-body text-xs font-semibold tracking-[0.18em] uppercase transition-colors group"
+              >
+                <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform duration-200" />
+                Capabilities
+              </Link>
+              <span className="w-px h-3.5 bg-white/20" />
+              <span className="gold-rule" />
+              <span className="text-brand-gold text-xs font-body font-semibold tracking-[0.22em] uppercase">
+                {area.title}
+              </span>
             </div>
+            <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-semibold text-white leading-[1.05] max-w-3xl mb-6">
+              {area.title}
+            </h1>
             {area.description && (
-              <p className="text-white/65 font-body text-lg leading-relaxed max-w-2xl">
+              <p className="font-heading italic text-xl text-white/60 max-w-2xl leading-relaxed">
                 {area.description}
               </p>
             )}
@@ -163,7 +180,6 @@ export default async function CapabilityPage({ params }: { params: Promise<{ slu
         </section>
       </main>
       <Footer />
-      <ConsultationModal />
       <WhatsAppButton />
       <ScrollToTop />
       <Toast />

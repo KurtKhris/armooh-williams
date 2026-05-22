@@ -1,7 +1,6 @@
 ﻿import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { WhatsAppButton, ScrollToTop, Toast } from "@/components/ui/FloatingWidgets";
-import ConsultationModal from "@/components/sections/ConsultationModal";
 import { db } from "@/lib/db";
 import { posts } from "@/lib/schema";
 import { eq, desc } from "drizzle-orm";
@@ -120,7 +119,6 @@ export default async function BlogPage() {
         )}
       </main>
       <Footer />
-      <ConsultationModal />
       <WhatsAppButton />
       <ScrollToTop />
       <Toast />

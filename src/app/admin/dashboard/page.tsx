@@ -26,8 +26,8 @@ export default async function DashboardPage() {
   const stats = [
     { icon: Newspaper, label: "News Articles", value: allPosts.length, sub: `${publishedCount} published`, color: "text-coral-500 bg-coral-500/20" },
     { icon: Calendar, label: "Events", value: allEvents.length, sub: `${publishedEventsCount} published`, color: "text-teal-300 bg-teal-800/30" },
-    { icon: Mail, label: "Inquiries", value: contacts.length, sub: "Contact submissions", color: "text-blue-400 bg-blue-400/20" },
-    { icon: TrendingUp, label: "Drafts", value: (allPosts.length - publishedCount) + (allEvents.length - publishedEventsCount), sub: "Unpublished items", color: "text-amber-400 bg-amber-400/20" },
+    { icon: Mail, label: "Inquiries", value: contacts.length, sub: "Contact submissions", color: "text-teal-300 bg-teal-400/20" },
+    { icon: TrendingUp, label: "Drafts", value: (allPosts.length - publishedCount) + (allEvents.length - publishedEventsCount), sub: "Unpublished items", color: "text-brand-gold bg-brand-gold/20" },
   ];
 
   return (
@@ -70,7 +70,7 @@ export default async function DashboardPage() {
                         {post.title}
                       </Link>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-body font-medium ${post.published ? "bg-emerald-400/15 text-emerald-400" : "bg-amber-400/15 text-amber-400"}`}>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-body font-medium ${post.published ? "bg-teal-500/15 text-teal-400" : "bg-brand-gold/15 text-brand-gold"}`}>
                           {post.published ? "Published" : "Draft"}
                         </span>
                         <span className="font-body text-white/35 text-xs">{formatDate(post.createdAt.toISOString())}</span>
@@ -140,7 +140,7 @@ export default async function DashboardPage() {
                         {event.title}
                       </Link>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-body font-medium ${event.published ? "bg-emerald-400/15 text-emerald-400" : "bg-amber-400/15 text-amber-400"}`}>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-body font-medium ${event.published ? "bg-teal-500/15 text-teal-400" : "bg-brand-gold/15 text-brand-gold"}`}>
                           {event.published ? "Published" : "Draft"}
                         </span>
                         {event.location && (

@@ -41,7 +41,7 @@ export default function ImageUpload({ value, onChange, label = "Image" }: ImageU
           <button
             type="button"
             onClick={() => onChange("")}
-            className="absolute top-2 right-2 w-7 h-7 flex items-center justify-center rounded-lg bg-black/60 hover:bg-red-500/80 text-white transition-colors"
+            className="absolute top-2 right-2 w-7 h-7 flex items-center justify-center rounded-lg bg-black/60 hover:bg-coral-500/80 text-white transition-colors"
           >
             <X size={14} />
           </button>

@@ -16,7 +16,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!UUID_RE.test(id)) return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
 
     const body = await req.json();
-    const { title, description, longDescription, icon, sortOrder, published } = body;
+    const { title, description, longDescription, icon, imageUrl, sortOrder, published } = body;
 
     if (!title?.trim()) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 });
@@ -30,6 +30,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         description: description ?? "",
         longDescription: longDescription ?? "",
         icon: icon ?? "scale",
+        imageUrl: imageUrl ?? null,
         sortOrder: sortOrder ?? 0,
         published: published ?? true,
         updatedAt: new Date(),

@@ -1,109 +1,134 @@
 "use client";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { CheckCircle2, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+
+const whyItems = [
+  "Internationally focused legal counsel",
+  "Responsive, partner-led service",
+  "Strategic and commercially minded advice",
+  "Discreet handling of sensitive matters",
+  "Long-term client relationships built on trust",
+];
 
 export default function About() {
-  const { ref, inView } = useInView({ threshold: 0.15, triggerOnce: true });
+  const { ref, inView } = useInView({ threshold: 0.08, triggerOnce: true });
 
   return (
-    <section id="about" className="section-padding bg-white relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-brand-gray/40 to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-coral-500/4 blur-[80px] pointer-events-none" />
-
+    <section id="about" className="section-padding bg-brand-ivory">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left: Image panel */}
+        <div ref={ref} className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+
+          {/* Left: main text content */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -24 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="relative"
+            transition={{ duration: 0.85 }}
+            className="flex flex-col justify-center"
           >
-            <div className="relative aspect-4/5 max-w-md mx-auto lg:mx-0 rounded-3xl overflow-hidden shadow-luxury-lg">
-              <Image
-                src="/Joyce.jpg"
-                alt="Armooh-Williams, PLLC Attorney"
-                fill
-                className="object-cover object-top"
-                priority
-              />
-
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-linear-to-t from-teal-950/80 via-transparent to-transparent" />
-
-              {/* Badge */}
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="glass rounded-2xl px-5 py-4">
-                  <p className="text-white font-heading text-lg font-semibold">Armooh-Williams, PLLC</p>
-                  <p className="text-white/60 font-body text-sm mt-1">Strategic Legal Excellence Since 2009</p>
-                </div>
-              </div>
+            <div className="flex items-center gap-4 mb-6">
+              <span className="gold-rule" />
+              <span className="text-brand-slate text-xs font-body font-semibold tracking-[0.18em] uppercase">
+                About the Firm
+              </span>
             </div>
 
-            {/* Floating accent card */}
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-6 -right-6 glass-light rounded-2xl p-4 shadow-luxury border border-white/60"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-coral-500 flex items-center justify-center">
-                  <CheckCircle2 size={18} className="text-white" />
-                </div>
-                <div>
-                  <p className="font-body font-bold text-brand-dark text-sm">98%</p>
-                  <p className="font-body text-brand-dark/60 text-xs">Success Rate</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Decorative corner */}
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-3xl border-2 border-coral-500/20 -z-10" />
-          </motion.div>
-
-          {/* Right: Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-coral-500/10 border border-coral-500/20 mb-6">
-              <span className="text-coral-500 text-xs font-body font-semibold tracking-[0.15em] uppercase">About the Firm</span>
-            </div>
-
-            <h2 className="font-heading text-4xl sm:text-5xl font-semibold text-brand-dark mb-2 leading-tight">
-              Legal Strategy{" "}
-              <span className="text-gradient-teal">for Impact</span>
+            <h2 className="font-heading text-4xl sm:text-5xl font-semibold text-brand-dark leading-[1.1] mb-6">
+              Precision, Discretion,{" "}
+              <span className="text-teal-800">and a Commercially Focused Approach</span>
             </h2>
-            <p className="font-heading text-lg font-medium text-coral-500 tracking-wide mb-6 uppercase">
-              — From Local Roots to Global Reach
+
+            <p className="font-body text-brand-slate text-base leading-relaxed mb-4">
+              Complex legal matters demand more than technical expertise — they require strategic thinking,
+              international perspective, and trusted relationships.
             </p>
 
-            <p className="text-brand-dark/65 font-body text-base leading-relaxed mb-5">
-              Whether you&apos;re launching a company, expanding across borders, navigating immigration, or investing in community transformation — Armooh-Williams, PLLC provides strategic legal counsel to help you move forward with clarity and confidence.
+            <p className="font-body text-brand-slate text-base leading-relaxed mb-4">
+              Our firm advises businesses, executives, investors, and private clients on global
+              mobility &amp; immigration, white collar defense &amp; sanctions, and trust &amp;
+              corporate services.
             </p>
 
-            <p className="text-brand-dark/65 font-body text-base leading-relaxed mb-5">
-              Founded by Joyce Williams—a Ghanaian-born attorney, award-winning advocate, and the first lawyer in her family—the firm&apos;s mission is shaped by her journey from immigrant to trusted legal advisor. That mission is simple but powerful: to deliver justice-driven, client-centered, and faith-informed legal leadership.
+            <p className="font-body text-brand-slate text-base leading-relaxed mb-10">
+              From cross-border expansion and regulatory investigations to asset protection and
+              long-term succession planning, we help clients navigate high-stakes decisions with
+              confidence and clarity.
             </p>
 
-            <p className="text-brand-dark/65 font-body text-base leading-relaxed mb-10">
-              Our practice spans International Law & Trade, Community Economic Development, Immigration Law, and Business & Corporate Law—serving clients at every stage, from startup to scale-up, from vision to measurable impact. We lead with integrity, a global perspective, and a deep commitment to helping clients build, grow, and thrive—both locally and beyond.
-            </p>
-
-
-            <Link
-              href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k=" target="_blank"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-teal-800 hover:bg-teal-700 text-white font-body font-semibold rounded-2xl transition-colors duration-200 group"
-            >
-              Book a Consultation
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
-            </Link>
+            {/* Buttons — desktop only (mobile version sits below the why list) */}
+            <div className="hidden lg:flex flex-wrap gap-4">
+              <Link
+                href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-teal-800 hover:bg-teal-700 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200 group"
+              >
+                Schedule a Consultation
+                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
+              </Link>
+              <Link
+                href="/about/the-firm"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 border border-teal-800/30 hover:border-teal-800 text-teal-800 font-body font-semibold rounded-xl text-sm transition-all duration-200"
+              >
+                Our Story
+              </Link>
+            </div>
           </motion.div>
+
+          {/* Right: image + why list */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.85, delay: 0.18 }}
+            className="flex flex-col gap-10"
+          >
+            {/* Full image, no cropping */}
+            <Image
+              src="/FIRMHISTORY.png"
+              alt="Armooh-Williams, PLLC — Firm History"
+              width={0}
+              height={0}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="w-full h-auto block rounded-2xl"
+            />
+
+            {/* Why Clients Choose Us — fills the space below the image */}
+            <div>
+              <p className="font-heading text-lg font-semibold text-brand-dark mb-5">
+                Why Clients Choose Us
+              </p>
+              <ul className="space-y-3">
+                {whyItems.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-coral-500 shrink-0" />
+                    <span className="font-body text-brand-slate text-sm leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Buttons — mobile only (desktop version sits in the text column) */}
+            <div className="flex lg:hidden flex-wrap gap-4">
+              <Link
+                href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-teal-800 hover:bg-teal-700 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200 group"
+              >
+                Schedule a Consultation
+                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
+              </Link>
+              <Link
+                href="/about/the-firm"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 border border-teal-800/30 hover:border-teal-800 text-teal-800 font-body font-semibold rounded-xl text-sm transition-all duration-200"
+              >
+                Our Story
+              </Link>
+            </div>
+          </motion.div>
+
         </div>
       </div>
     </section>

@@ -29,7 +29,7 @@ export default function ConfirmModal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-60 bg-black/60 backdrop-blur-sm"
             onClick={onCancel}
           />
           <motion.div
@@ -37,12 +37,12 @@ export default function ConfirmModal({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[61] flex items-center justify-center px-4 pointer-events-none"
+            className="fixed inset-0 z-61 flex items-center justify-center px-4 pointer-events-none"
           >
             <div className="w-full max-w-sm bg-[#0f2d36] border border-white/10 rounded-2xl p-6 shadow-[0_32px_80px_rgba(0,0,0,0.5)] pointer-events-auto text-left">
               <div className="flex items-start justify-between mb-4">
-                <div className="w-10 h-10 rounded-xl bg-red-500/15 flex items-center justify-center">
-                  <AlertTriangle size={18} className="text-red-400" />
+                <div className="w-10 h-10 rounded-xl bg-coral-500/15 flex items-center justify-center">
+                  <AlertTriangle size={18} className="text-coral-500" />
                 </div>
                 <button
                   onClick={onCancel}
@@ -64,7 +64,7 @@ export default function ConfirmModal({
                 <button
                   onClick={onConfirm}
                   disabled={loading}
-                  className="flex-1 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 disabled:opacity-60 text-white font-body font-semibold text-sm transition-colors"
+                  className="flex-1 py-2.5 rounded-xl bg-coral-500 hover:bg-coral-600 disabled:opacity-60 text-white font-body font-semibold text-sm transition-colors"
                 >
                   {loading ? "Deleting..." : confirmLabel}
                 </button>

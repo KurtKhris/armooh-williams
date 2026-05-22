@@ -14,9 +14,9 @@ export default function ClientsMarquee() {
   const doubled = [...clients, ...clients];
 
   return (
-    <section className="py-14 bg-coral-500 border-y border-brand-gray/60 overflow-hidden">
+    <section className="py-14 bg-teal-950 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
-        <p className="font-body text-xs font-semibold text-white tracking-[0.2em] uppercase">
+        <p className="font-body text-xs font-semibold text-white/45 tracking-[0.2em] uppercase">
           Trusted by leading organizations
         </p>
       </div>
@@ -28,7 +28,7 @@ export default function ClientsMarquee() {
           {doubled.map((client, i) => (
             <div
               key={i}
-              className="mx-10 flex-shrink-0 flex items-center justify-center"
+              className="mx-10 shrink-0 flex items-center justify-center"
             >
               <div className="h-14 w-32 relative">
                 <Image

@@ -125,7 +125,7 @@ export default function TestimonialsAdminPage() {
                   <button
                     onClick={() => setConfirmDeleteId(item.id)}
                     disabled={deletingId === item.id}
-                    className="shrink-0 p-2 rounded-xl hover:bg-red-500/10 text-white/50 hover:text-red-400 transition-colors disabled:opacity-40"
+                    className="shrink-0 p-2 rounded-xl hover:bg-coral-500/10 text-white/50 hover:text-coral-500 transition-colors disabled:opacity-40"
                     title="Delete"
                   >
                     <Trash2 size={15} />
