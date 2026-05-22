@@ -1,10 +1,11 @@
 import { db } from "@/lib/db";
 import { practiceAreas } from "@/lib/schema";
+import type { PracticeArea } from "@/lib/schema";
 import { asc } from "drizzle-orm";
 import PracticeAreasList from "./PracticeAreasList";
 
 export default async function PracticeAreasAdminPage() {
-  let areas = [];
+  let areas: PracticeArea[] = [];
   try {
     areas = await db
       .select()
