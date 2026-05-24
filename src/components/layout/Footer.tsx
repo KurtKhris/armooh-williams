@@ -64,10 +64,11 @@ export default function Footer() {
             <Link href="/" className="inline-block mb-6">
               <div className="bg-white px-3 py-2 rounded-lg">
                 <Image
-                  src="/aw_logo.png"
+                  src="/naw_logo.png"
                   alt="Armooh-Williams, PLLC"
                   width={130}
                   height={52}
+                  unoptimized
                   className="h-11 w-auto object-contain"
                 />
               </div>

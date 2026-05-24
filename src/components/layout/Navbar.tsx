@@ -72,10 +72,11 @@ export default function Navbar() {
             {/* ── Logo ── */}
             <Link href="/" className="shrink-0 group">
               <Image
-                src="/aw_logo.png"
+                src="/naw_logo.png"
                 alt="Armooh-Williams, PLLC"
                 width={160}
                 height={52}
+                unoptimized
                 className="h-12 w-auto object-contain"
                 priority
               />
@@ -210,7 +211,7 @@ export default function Navbar() {
               {/* Mobile header */}
               <div className="flex items-center justify-between px-6 py-5 border-b border-teal-900/10">
                 <Link href="/" onClick={() => dispatch(setMobileMenuOpen(false))}>
-                  <Image src="/aw_logo.png" alt="Armooh-Williams, PLLC" width={120} height={40} className="h-10 w-auto object-contain" />
+                  <Image src="/naw_logo.png" alt="Armooh-Williams, PLLC" width={120} height={40} unoptimized priority className="h-10 w-auto object-contain" />
                 </Link>
                 <button
                   onClick={() => dispatch(setMobileMenuOpen(false))}
