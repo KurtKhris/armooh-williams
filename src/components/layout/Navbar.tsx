@@ -222,7 +222,6 @@ export default function Navbar() {
                   <X size={20} />
                 </button>
               </div>
-
               {/* Mobile links */}
               <div className="px-4 py-5 space-y-0.5">
                 {navLinks.map((link) => {
