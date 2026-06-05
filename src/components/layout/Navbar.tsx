@@ -126,6 +126,8 @@ export default function Navbar() {
                               <Link
                                 key={item.href}
                                 href={item.href}
+                                target={item.target}
+                                rel={item.rel}
                                 onClick={() => setAboutOpen(false)}
                                 className="block px-5 py-3 text-sm font-body text-teal-800/70 hover:text-teal-900 hover:bg-teal-50 transition-colors duration-150"
                               >
@@ -251,6 +253,8 @@ export default function Navbar() {
                                   <Link
                                     key={item.href}
                                     href={item.href}
+                                    target={item.target}
+                                    rel={item.rel}
                                     onClick={() => dispatch(setMobileMenuOpen(false))}
                                     className="block px-4 py-2.5 text-teal-800/60 hover:text-teal-900 hover:bg-teal-50 rounded-xl font-body text-sm transition-colors duration-200"
                                   >
