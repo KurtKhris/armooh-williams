@@ -11,7 +11,7 @@ import { useSettings } from "@/components/SettingsContext";
 
 const aboutItems = [
   { label: "The Firm", href: "/about/the-firm" },
-  { label: "Armooh Williams Foundation", href: "#" },
+  { label: "Armooh Williams Foundation", href: "https://armooh-williamsfoundation.org", target: "_blank", rel: "noopener" },
 ];
 
 const navLinks = [
