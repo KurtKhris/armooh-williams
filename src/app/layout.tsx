@@ -74,6 +74,8 @@ export default async function RootLayout({
       className={`${cormorant.variable} ${inter.variable} scroll-smooth`}
     >
       <body className="font-body bg-white text-brand-dark antialiased">
+        {/* Fallback: make all content visible when JS is disabled or fails to load */}
+        <noscript dangerouslySetInnerHTML={{ __html: `<style>*{opacity:1!important;transform:none!important;visibility:visible!important}</style>` }} />
         <Providers settings={settings}>{children}</Providers>
       </body>
     </html>

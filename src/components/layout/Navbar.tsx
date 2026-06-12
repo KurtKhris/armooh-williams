@@ -195,20 +195,12 @@ export default function Navbar() {
       {/* ── Mobile Menu ── */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => dispatch(setMobileMenuOpen(false))}
-              className="fixed inset-0 z-40 bg-black/55 backdrop-blur-sm lg:hidden"
-            />
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 310 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-80 bg-white border-l border-teal-900/10 lg:hidden overflow-y-auto"
+              className="fixed inset-0 z-60 bg-white lg:hidden overflow-y-auto"
             >
               {/* Mobile header */}
               <div className="flex items-center justify-between px-6 py-5 border-b border-teal-900/10">
@@ -303,7 +295,6 @@ export default function Navbar() {
                 </Link>
               </div>
             </motion.div>
-          </>
         )}
       </AnimatePresence>
     </>

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { ArrowRight, Calendar } from "lucide-react";
 
-const BG_IMAGES = ["/FRONTPAGE.png", "/FRONTPAGETWO.png", "/FRONTTHREE.png", "/FRONTFIVE.png"];
+const BG_IMAGES = ["/FRONTPAGE.webp", "/FRONTPAGETWO.webp", "/FRONTTHREE.webp", "/FRONTFIVE.webp"];
 export default function Hero() {
   const [index, setIndex] = useState(0);
 
@@ -38,6 +38,7 @@ export default function Hero() {
                 src={BG_IMAGES[index]}
                 alt=""
                 fill
+                sizes="100vw"
                 className="object-cover object-center"
                 priority={index === 0}
                 aria-hidden
@@ -72,17 +73,31 @@ export default function Hero() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.12 }}
-          className="font-heading text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem] font-semibold text-white leading-[1.05] max-w-4xl mb-8"
+          className="font-heading text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem] font-semibold text-white leading-[1.05] max-w-4xl mb-5"
         >
           Strategic Legal Counsel{" "}
           <span className="text-brand-gold">for a Global World</span>
         </motion.h1>
 
+        {/* Practice areas — immediately visible without scrolling */}
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.22 }}
+          className="font-body text-white/60 text-sm sm:text-[0.95rem] mb-8 tracking-wide"
+        >
+          Immigration &amp; Global Mobility
+          <span className="mx-3 text-white/25">·</span>
+          White Collar Defense &amp; Sanctions
+          <span className="mx-3 text-white/25">·</span>
+          Trusts &amp; Corporate Services
+        </motion.p>
+
         {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25 }}
+          transition={{ duration: 0.7, delay: 0.35 }}
           className="flex flex-wrap gap-4"
         >
           <Link

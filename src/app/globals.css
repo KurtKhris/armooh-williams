@@ -245,6 +245,16 @@
   }
 }
 
+/* ── Reduced-motion accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ── Rich text rendered content ── */
 .rich-content p  { margin-bottom: 0.875rem !important; color: rgba(31,31,31,0.72); line-height: 1.8; }
 .rich-content h2 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; color: #1F1F1F; margin-top: 2rem; margin-bottom: 0.625rem; line-height: 1.3; }
