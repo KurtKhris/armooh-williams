@@ -3,7 +3,7 @@ import Footer from "@/components/layout/Footer";
 import { WhatsAppButton, ScrollToTop, Toast } from "@/components/ui/FloatingWidgets";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, ArrowRight } from "lucide-react";
+import GoogleCalendarButton from "@/components/ui/GoogleCalendarButton";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -110,16 +110,7 @@ export default function PeoplePage() {
                   navigating immigration, business risk, and government scrutiny.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Link
-                    href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3.5 bg-coral-500 hover:bg-coral-600 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200"
-                    style={{ boxShadow: "0 4px 18px rgba(196,30,36,0.38)" }}
-                  >
-                    <Calendar size={15} />
-                    Schedule a Consultation
-                  </Link>
+                  <GoogleCalendarButton label="Schedule a Consultation" />
                   <Link
                     href="/contact"
                     className="inline-flex items-center gap-2 px-6 py-3.5 bg-white/8 hover:bg-white/14 text-white border border-white/20 font-body font-semibold rounded-xl text-sm transition-colors duration-200"
@@ -224,15 +215,7 @@ export default function PeoplePage() {
                       Discuss your matter directly with Joyce. All consultations are handled with the
                       utmost discretion and confidentiality.
                     </p>
-                    <Link
-                      href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full py-3 bg-coral-500 hover:bg-coral-600 text-white font-body font-semibold text-sm rounded-xl transition-colors duration-200"
-                    >
-                      <Calendar size={14} />
-                      Book Now
-                    </Link>
+                    <GoogleCalendarButton label="Book Now" className="w-full" />
                   </div>
                 </div>
               </div>
@@ -287,17 +270,7 @@ export default function PeoplePage() {
                   Liberty, livelihood, family, business, and reputation.
                 </p>
               </div>
-              <Link
-                href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-coral-500 hover:bg-coral-600 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200 shrink-0"
-                style={{ boxShadow: "0 4px 18px rgba(196,30,36,0.38)" }}
-              >
-                <Calendar size={15} />
-                Schedule a Consultation
-                <ArrowRight size={14} />
-              </Link>
+              <GoogleCalendarButton label="Schedule a Consultation" />
             </div>
           </div>
         </section>

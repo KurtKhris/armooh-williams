@@ -4,8 +4,8 @@ import { WhatsAppButton, ScrollToTop, Toast } from "@/components/ui/FloatingWidg
 import { db } from "@/lib/db";
 import { legalPages } from "@/lib/schema";
 import { eq } from "drizzle-orm";
-import { Calendar } from "lucide-react";
 import Link from "next/link";
+import GoogleCalendarButton from "@/components/ui/GoogleCalendarButton";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -67,15 +67,7 @@ export default async function PrivacyPage() {
                     <p className="font-body text-white/60 text-sm leading-relaxed mb-5">
                       If you have any questions about our privacy practices, schedule a consultation with our team.
                     </p>
-                    <Link
-                      href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full py-3 bg-coral-500 hover:bg-coral-600 text-white font-body font-semibold text-sm rounded-xl transition-colors"
-                    >
-                      <Calendar size={15} />
-                      Book a Consultation
-                    </Link>
+                    <GoogleCalendarButton label="Book a Consultation" className="w-full" />
                   </div>
                   <div className="p-5 rounded-2xl bg-brand-gray/50 border border-brand-gray space-y-2">
                     <h4 className="font-body font-semibold text-brand-dark text-sm mb-1">Other Legal Pages</h4>

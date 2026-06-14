@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Phone } from "lucide-react";
+import GoogleCalendarButton from "@/components/ui/GoogleCalendarButton";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { toggleMobileMenu, setMobileMenuOpen } from "@/store/uiSlice";
 import { useSettings } from "@/components/SettingsContext";
@@ -169,15 +170,7 @@ export default function Navbar() {
                 <Phone size={13} />
                 <span>{phone}</span>
               </a>
-              <Link
-                href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 bg-coral-500 hover:bg-coral-600 text-white text-sm font-body font-semibold rounded-xl transition-colors duration-200"
-                style={{ boxShadow: "0 3px 14px rgba(196,30,36,0.28)" }}
-              >
-                Schedule Consultation
-              </Link>
+              <GoogleCalendarButton label="Schedule Consultation" />
             </div>
 
             {/* ── Mobile menu button ── */}
@@ -284,15 +277,9 @@ export default function Navbar() {
                   <Phone size={15} />
                   <span>{phone}</span>
                 </a>
-                <Link
-                  href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => dispatch(setMobileMenuOpen(false))}
-                  className="block w-full py-3 text-center bg-coral-500 text-white font-body font-semibold rounded-xl text-sm"
-                >
-                  Schedule Consultation
-                </Link>
+                <div onClick={() => dispatch(setMobileMenuOpen(false))}>
+                  <GoogleCalendarButton label="Schedule Consultation" className="w-full" />
+                </div>
               </div>
             </motion.div>
         )}

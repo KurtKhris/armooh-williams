@@ -7,7 +7,8 @@ import { eq, asc } from "drizzle-orm";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import GoogleCalendarButton from "@/components/ui/GoogleCalendarButton";
 
 export const metadata: Metadata = {
   title: "Capabilities | Armooh-Williams, PLLC",
@@ -175,16 +176,7 @@ export default async function CapabilitiesPage() {
               protect both opportunity and reputation. We deliver practical legal solutions designed
               for modern global challenges.
             </p>
-            <Link
-              href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-8 py-4 bg-coral-500 hover:bg-coral-600 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200"
-              style={{ boxShadow: "0 4px 22px rgba(196,30,36,0.42)" }}
-            >
-              <Calendar size={16} />
-              Schedule a Confidential Consultation
-            </Link>
+            <GoogleCalendarButton label="Schedule a Confidential Consultation" />
           </div>
         </section>
 

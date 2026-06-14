@@ -3,7 +3,8 @@ import Footer from "@/components/layout/Footer";
 import { WhatsAppButton, ScrollToTop, Toast } from "@/components/ui/FloatingWidgets";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import GoogleCalendarButton from "@/components/ui/GoogleCalendarButton";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -221,16 +222,7 @@ export default function TheFirmPage() {
               significant and consequential matters.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-coral-500 hover:bg-coral-600 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200"
-                style={{ boxShadow: "0 4px 18px rgba(196,30,36,0.38)" }}
-              >
-                <Calendar size={15} />
-                Schedule a Consultation
-              </Link>
+              <GoogleCalendarButton label="Schedule a Consultation" />
               <Link
                 href="/people"
                 className="inline-flex items-center gap-2.5 px-7 py-3.5 border border-white/20 hover:border-white/40 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200 group"

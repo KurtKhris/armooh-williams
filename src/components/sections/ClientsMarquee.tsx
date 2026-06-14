@@ -17,7 +17,7 @@ export default function ClientsMarquee() {
     <section className="py-14 bg-teal-950 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
         <p className="font-body text-xs font-semibold text-white/45 tracking-[0.2em] uppercase">
-          Trusted by leading organizations
+          Leadership & Professional Involvement organizations
         </p>
       </div>
 

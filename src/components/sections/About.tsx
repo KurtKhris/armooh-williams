@@ -3,14 +3,15 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import GoogleCalendarButton from "@/components/ui/GoogleCalendarButton";
 
 const whyItems = [
-  "Internationally focused legal counsel",
+  "Trusted counsel to businesses, executives, investors, entrepreneurs, and private clients",
+  "Experience across immigration, sanctions, regulatory, corporate, and trust matters",
+  "Practical advice that considers legal, business, family, and reputational objectives",
   "Responsive, partner-led service",
-  "Strategic and commercially minded advice",
-  "Discreet handling of sensitive matters",
-  "Long-term client relationships built on trust",
+  "Discreet handling of sensitive and high stakes matters",
+  "Long-term relationships built on clarity, judgment, and trust",
 ];
 
 export default function About() {
@@ -36,45 +37,36 @@ export default function About() {
             </div>
 
             <h2 className="font-heading text-4xl sm:text-5xl font-semibold text-brand-dark leading-[1.1] mb-6">
-              Precision, Discretion,{" "}
-              <span className="text-teal-800">and a Commercially Focused Approach</span>
+              Strategic Counsel{" "}
+              <span className="text-teal-800">When Immigration, Business, and Reputation Are at Stake</span>
             </h2>
 
             <p className="font-body text-brand-slate text-base leading-relaxed mb-4">
-              Complex legal matters demand more than technical expertise — they require strategic thinking,
-              international perspective, and trusted relationships.
+              Armooh-Williams, PLLC advises businesses, executives, investors, entrepreneurs, and private clients whose legal matters cross borders and carry significant personal, financial, and reputational consequences.
             </p>
 
             <p className="font-body text-brand-slate text-base leading-relaxed mb-4">
-              Our firm advises businesses, executives, investors, and private clients on global
-              mobility &amp; immigration, white collar defense &amp; sanctions, and trust &amp;
-              corporate services.
+              Our clients turn to us when expanding internationally, relocating key talent, responding to government scrutiny, navigating sanctions and compliance risks, structuring businesses, protecting assets, or planning for long-term family and business succession.
             </p>
 
             <p className="font-body text-brand-slate text-base leading-relaxed mb-10">
-              From cross-border expansion and regulatory investigations to asset protection and
-              long-term succession planning, we help clients navigate high-stakes decisions with
-              confidence and clarity.
+              These challenges are rarely isolated. An immigration matter can affect a company&rsquo;s growth. A regulatory inquiry can impact a hard-earned reputation. A corporate or trust decision can shape a family&rsquo;s future for generations. We help clients evaluate risk, make informed decisions, and move forward with confidence.
+            </p>
+
+            <p className="font-body text-brand-slate text-base leading-relaxed">
+              Our approach combines international perspective, strategic legal judgment, commercial practicality, and discreet, responsive service. Every engagement is handled with care, clarity, and a deep understanding of what is at stake.
             </p>
 
             {/* Buttons — desktop only (mobile version sits below the why list) */}
-            <div className="hidden lg:flex flex-wrap gap-4">
-              <Link
-                href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-teal-800 hover:bg-teal-700 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200 group"
-              >
-                Schedule a Consultation
-                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
-              </Link>
+            {/* <div className="hidden lg:flex flex-wrap gap-4">
+              <GoogleCalendarButton label="Schedule a Consultation" color="#115E59" />
               <Link
                 href="/about/the-firm"
                 className="inline-flex items-center gap-2.5 px-6 py-3.5 border border-teal-800/30 hover:border-teal-800 text-teal-800 font-body font-semibold rounded-xl text-sm transition-all duration-200"
               >
                 Our Story
               </Link>
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Right: image + why list */}
@@ -97,7 +89,7 @@ export default function About() {
             {/* Why Clients Choose Us — fills the space below the image */}
             <div>
               <p className="font-heading text-lg font-semibold text-brand-dark mb-5">
-                Why Clients Choose Us
+                The Armooh-Williams Difference
               </p>
               <ul className="space-y-3">
                 {whyItems.map((item) => (
@@ -111,15 +103,7 @@ export default function About() {
 
             {/* Buttons — mobile only (desktop version sits in the text column) */}
             <div className="flex lg:hidden flex-wrap gap-4">
-              <Link
-                href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-teal-800 hover:bg-teal-700 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200 group"
-              >
-                Schedule a Consultation
-                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
-              </Link>
+              <GoogleCalendarButton label="Schedule a Consultation" color="#115E59" />
               <Link
                 href="/about/the-firm"
                 className="inline-flex items-center gap-2.5 px-6 py-3.5 border border-teal-800/30 hover:border-teal-800 text-teal-800 font-body font-semibold rounded-xl text-sm transition-all duration-200"

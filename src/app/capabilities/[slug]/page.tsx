@@ -7,8 +7,9 @@ import Footer from "@/components/layout/Footer";
 import { WhatsAppButton, ScrollToTop, Toast } from "@/components/ui/FloatingWidgets";
 import {
   Building2, Gavel, Globe, Heart, Home, Earth, Lightbulb, Scale,
-  Briefcase, Users, Shield, FileText, ArrowLeft, ArrowRight, Calendar,
+  Briefcase, Users, Shield, FileText, ArrowLeft, ArrowRight,
 } from "lucide-react";
+import GoogleCalendarButton from "@/components/ui/GoogleCalendarButton";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -138,15 +139,7 @@ export default async function CapabilityPage({ params }: { params: Promise<{ slu
                     <p className="font-body text-white/60 text-sm leading-relaxed mb-5">
                       Schedule a consultation with our {area.title.toLowerCase()} specialists today.
                     </p>
-                    <Link
-                      href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full py-3 bg-coral-500 hover:bg-coral-600 text-white font-body font-semibold text-sm rounded-xl transition-colors"
-                    >
-                      <Calendar size={15} />
-                      Book a Consultation
-                    </Link>
+                    <GoogleCalendarButton label="Book a Consultation" className="w-full" />
                   </div>
 
                   {/* Other capabilities */}

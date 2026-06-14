@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { formatDate } from "@/lib/utils";
 import { Clock, Tag, ArrowLeft, User } from "lucide-react";
+import GoogleCalendarButton from "@/components/ui/GoogleCalendarButton";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
@@ -96,14 +97,7 @@ export default async function NewsArticlePage({ params }: Props) {
                   <div className="p-5 rounded-2xl bg-linear-to-br from-teal-800 to-teal-950 border border-white/10">
                     <h3 className="font-heading text-lg font-semibold text-white mb-3">Need Legal Advice?</h3>
                     <p className="font-body text-white/60 text-sm mb-4">Schedule a confidential consultation with our attorneys.</p>
-                    <Link 
-                      href="https://calendar.google.com/calendar/u/0/appointments/AcZssZ2GDJMlLObqrZgcvSDljz5vUBbLNsq8lFU3P1k="
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-center py-2.5 bg-coral-500 hover:bg-coral-600 text-white font-body font-semibold text-sm rounded-xl transition-colors"
-                    >
-                      Book Consultation
-                    </Link>
+                    <GoogleCalendarButton label="Book Consultation" className="w-full" />
                   </div>
 
                   <div className="p-5 rounded-2xl bg-brand-gray/50 border border-brand-gray">

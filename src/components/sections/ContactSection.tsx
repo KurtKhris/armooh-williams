@@ -100,18 +100,23 @@ export default function ContactSection({
               <div className="space-y-2 text-sm font-body">
                 <div className="flex justify-between text-white/70">
                   <span>Monday – Friday</span>
-                  <span className="text-white font-medium">9:00 AM – 6:00 PM</span>
+                  <span className="text-white font-medium">9:00 AM – 5:00 PM EST</span>
                 </div>
                 <div className="flex justify-between text-white/70">
                   <span>Saturday</span>
-                  <span className="text-white font-medium">By Appointment</span>
+                  <span className="text-white font-medium">By Appointment Only</span>
                 </div>
                 <div className="flex justify-between text-white/70">
                   <span>Sunday</span>
                   <span className="text-white/50">Closed</span>
                 </div>
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <span className="text-coral-500 font-semibold text-xs tracking-wide uppercase">Emergency Consultations: 24/7</span>
+                <div className="mt-4 pt-4 border-t border-white/10 space-y-3">
+                  <p className="text-white/50 text-xs leading-relaxed">
+                    <span className="text-coral-400 font-semibold">Federal Holidays:</span> Our offices observe all U.S. federal holidays. Inquiries received during closures will be addressed on the next business day.
+                  </p>
+                  <p className="text-white/50 text-xs leading-relaxed">
+                    To schedule a consultation, please contact our office or use our online appointment scheduler.
+                  </p>
                 </div>
               </div>
             </div>
