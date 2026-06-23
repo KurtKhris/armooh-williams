@@ -56,11 +56,10 @@ export async function POST(req: NextRequest) {
       })
       .returning();
 
-    // Fire emails (non-blocking — don't fail the response if email fails)
     const firmEmail = process.env.FIRM_EMAIL!;
     const settings = await getSettings();
 
-    Promise.allSettled([
+    const emailResults = await Promise.allSettled([
       sendEmail({
         to: firmEmail,
         subject: `New Contact Inquiry — ${firstName} ${lastName}`,
@@ -71,12 +70,11 @@ export async function POST(req: NextRequest) {
         subject: "We've received your message — Armooh-Williams, PLLC",
         html: contactUserEmail({ firstName, practiceArea, firmEmail: settings.email, firmPhone: settings.phone }),
       }),
-    ]).then((results) => {
-      results.forEach((r, i) => {
-        if (r.status === "rejected") {
-          console.error(`Contact email ${i === 0 ? "to firm" : "to user"} failed:`, r.reason);
-        }
-      });
+    ]);
+    emailResults.forEach((r, i) => {
+      if (r.status === "rejected") {
+        console.error(`Contact email ${i === 0 ? "to firm" : "to user"} failed:`, r.reason);
+      }
     });
 
     return NextResponse.json({ success: true, id: submission.id }, { status: 201 });

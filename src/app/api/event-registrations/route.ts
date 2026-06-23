@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
     const settings = await getSettings();
     const formattedDate = event.eventDate ? formatEventDate(event.eventDate) : undefined;
 
-    Promise.allSettled([
+    const emailResults = await Promise.allSettled([
       sendEmail({
         to: firmEmail,
         subject: `New RSVP — ${event.title} (${firstName} ${lastName})`,
@@ -76,12 +76,11 @@ export async function POST(req: NextRequest) {
           firmPhone: settings.phone,
         }),
       }),
-    ]).then((results) => {
-      results.forEach((r, i) => {
-        if (r.status === "rejected") {
-          console.error(`RSVP email ${i === 0 ? "to firm" : "to user"} failed:`, r.reason);
-        }
-      });
+    ]);
+    emailResults.forEach((r, i) => {
+      if (r.status === "rejected") {
+        console.error(`RSVP email ${i === 0 ? "to firm" : "to user"} failed:`, r.reason);
+      }
     });
 
     return NextResponse.json(registration, { status: 201 });
