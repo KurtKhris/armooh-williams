@@ -4,9 +4,9 @@ import nodemailer from "nodemailer";
 // TEMPORARY diagnostic endpoint — delete after debugging email delivery.
 // Visit /api/health/email?key=YOUR_KEY on the live site.
 export async function GET(req: NextRequest) {
-  // Simple gate so this isn't fully public. Pass ?key=<NEXTAUTH_SECRET>
+  // Simple URL-safe gate so this isn't fully public. Pass ?key=diag-armooh-2026
   const key = req.nextUrl.searchParams.get("key");
-  if (!process.env.NEXTAUTH_SECRET || key !== process.env.NEXTAUTH_SECRET) {
+  if (key !== "diag-armooh-2026") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
