@@ -1,10 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Lock } from "lucide-react";
 import { useAppDispatch } from "@/store/hooks";
 import { showToast } from "@/store/uiSlice";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA";
 
 interface ContactInfo {
   city: string;
@@ -30,7 +33,12 @@ export default function ContactSection({
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "", practiceArea: "", message: "" });
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<TurnstileInstance>(null);
+  const [form, setForm] = useState({
+    firstName: "", lastName: "", email: "", phone: "", practiceArea: "", message: "",
+    website: "", // honeypot — must stay empty
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -43,7 +51,7 @@ export default function ContactSection({
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, turnstileToken }),
       });
       if (res.ok) {
         setSubmitted(true);
@@ -51,6 +59,8 @@ export default function ContactSection({
       } else throw new Error();
     } catch {
       dispatch(showToast({ message: "Failed to send. Please try again.", type: "error" }));
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
     } finally {
       setLoading(false);
     }
@@ -159,6 +169,11 @@ export default function ContactSection({
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {/* Honeypot — hidden from humans, bots fill it in */}
+                  <div style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }} aria-hidden="true">
+                    <input name="website" type="text" tabIndex={-1} autoComplete="off" value={form.website} onChange={handleChange} />
+                  </div>
+
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block font-body text-xs font-semibold text-brand-dark/60 uppercase tracking-wide mb-2">First Name</label>
@@ -205,9 +220,16 @@ export default function ContactSection({
                     <p className="text-brand-dark/50 font-body text-xs">Protected by attorney-client privilege. All communications are strictly confidential.</p>
                   </div>
 
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={TURNSTILE_SITE_KEY}
+                    onSuccess={setTurnstileToken}
+                    options={{ appearance: "interaction-only", size: "flexible" }}
+                  />
+
                   <motion.button
                     type="submit"
-                    disabled={loading}
+                    disabled={loading || !turnstileToken}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="w-full flex items-center justify-center gap-2.5 py-4 bg-coral-500 hover:bg-coral-600 disabled:opacity-60 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200 shadow-coral"

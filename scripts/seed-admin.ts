@@ -1,6 +1,9 @@
+import { config } from "dotenv";
 import { neon } from "@neondatabase/serverless";
 import bcrypt from "bcryptjs";
 import * as readline from "readline";
+
+config({ path: ".env.local" });
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 const ask = (q: string): Promise<string> => new Promise((res) => rl.question(q, res));
