@@ -3,10 +3,13 @@ import { emailWrapper } from "./base";
 interface ContactUserEmailProps {
   firstName: string;
   practiceArea?: string;
+  firmEmail: string;
+  firmPhone: string;
 }
 
 export function contactUserEmail(data: ContactUserEmailProps): string {
-  const { firstName, practiceArea } = data;
+  const { firstName, practiceArea, firmEmail, firmPhone } = data;
+  const phoneHref = firmPhone.replace(/[^\d+]/g, "");
 
   const content = `
     <!-- Greeting -->
@@ -68,9 +71,9 @@ export function contactUserEmail(data: ContactUserEmailProps): string {
     <!-- Contact info -->
     <div style="border-top:1px solid #e4eaed;padding-top:24px;text-align:center;">
       <p style="color:#9aafb8;font-size:12px;margin:0 0 8px;">Need immediate assistance? Contact us directly.</p>
-      <a href="tel:+17032204504" style="color:#0d3845;font-size:14px;font-weight:700;text-decoration:none;">+1 (703) 220-4504</a>
+      <a href="tel:${phoneHref}" style="color:#0d3845;font-size:14px;font-weight:700;text-decoration:none;">${firmPhone}</a>
       <span style="color:#d1d5db;margin:0 8px;">·</span>
-      <a href="mailto:info@armooh-williams.com" style="color:#ef4b43;font-size:14px;font-weight:700;text-decoration:none;">info@armooh-williams.com</a>
+      <a href="mailto:${firmEmail}" style="color:#ef4b43;font-size:14px;font-weight:700;text-decoration:none;">${firmEmail}</a>
     </div>
   `;
 

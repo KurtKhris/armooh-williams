@@ -4,6 +4,7 @@ import { contactSubmissions } from "@/lib/schema";
 import { sendEmail } from "@/lib/email/mailer";
 import { contactAdminEmail } from "@/lib/email/templates/contact-admin";
 import { contactUserEmail } from "@/lib/email/templates/contact-user";
+import { getSettings } from "@/lib/settings";
 
 async function verifyTurnstile(token: string, ip: string | null): Promise<boolean> {
   const secret = process.env.TURNSTILE_SECRET_KEY ?? "1x0000000000000000000000000000000AA";
@@ -56,7 +57,8 @@ export async function POST(req: NextRequest) {
       .returning();
 
     // Fire emails (non-blocking — don't fail the response if email fails)
-    const firmEmail = process.env.FIRM_EMAIL ?? "info@armooh-williams.com";
+    const firmEmail = process.env.FIRM_EMAIL!;
+    const settings = await getSettings();
 
     Promise.allSettled([
       sendEmail({
@@ -67,9 +69,15 @@ export async function POST(req: NextRequest) {
       sendEmail({
         to: email,
         subject: "We've received your message — Armooh-Williams, PLLC",
-        html: contactUserEmail({ firstName, practiceArea }),
+        html: contactUserEmail({ firstName, practiceArea, firmEmail: settings.email, firmPhone: settings.phone }),
       }),
-    ]).catch(console.error);
+    ]).then((results) => {
+      results.forEach((r, i) => {
+        if (r.status === "rejected") {
+          console.error(`Contact email ${i === 0 ? "to firm" : "to user"} failed:`, r.reason);
+        }
+      });
+    });
 
     return NextResponse.json({ success: true, id: submission.id }, { status: 201 });
   } catch (error) {

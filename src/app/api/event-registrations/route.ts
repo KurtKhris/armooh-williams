@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { sendEmail } from "@/lib/email/mailer";
 import { rsvpAdminEmail } from "@/lib/email/templates/rsvp-admin";
 import { rsvpUserEmail } from "@/lib/email/templates/rsvp-user";
+import { getSettings } from "@/lib/settings";
 
 function formatEventDate(dateStr: string) {
   try {
@@ -43,7 +44,8 @@ export async function POST(req: NextRequest) {
       .returning();
 
     // Fire emails (non-blocking)
-    const firmEmail = process.env.FIRM_EMAIL ?? "info@armooh-williams.com";
+    const firmEmail = process.env.FIRM_EMAIL!;
+    const settings = await getSettings();
     const formattedDate = event.eventDate ? formatEventDate(event.eventDate) : undefined;
 
     Promise.allSettled([
@@ -70,9 +72,17 @@ export async function POST(req: NextRequest) {
           eventDate: formattedDate,
           eventTime: event.eventTime ?? undefined,
           eventLocation: event.location ?? undefined,
+          firmEmail: settings.email,
+          firmPhone: settings.phone,
         }),
       }),
-    ]).catch(console.error);
+    ]).then((results) => {
+      results.forEach((r, i) => {
+        if (r.status === "rejected") {
+          console.error(`RSVP email ${i === 0 ? "to firm" : "to user"} failed:`, r.reason);
+        }
+      });
+    });
 
     return NextResponse.json(registration, { status: 201 });
   } catch (error) {

@@ -56,9 +56,13 @@ export default function ContactSection({
       if (res.ok) {
         setSubmitted(true);
         dispatch(showToast({ message: "Message sent!", type: "success" }));
-      } else throw new Error();
-    } catch {
-      dispatch(showToast({ message: "Failed to send. Please try again.", type: "error" }));
+      } else {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Request failed");
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Failed to send. Please try again.";
+      dispatch(showToast({ message: msg, type: "error" }));
       turnstileRef.current?.reset();
       setTurnstileToken("");
     } finally {

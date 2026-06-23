@@ -71,6 +71,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${cormorant.variable} ${inter.variable} scroll-smooth`}
     >
       <body className="font-body bg-white text-brand-dark antialiased">

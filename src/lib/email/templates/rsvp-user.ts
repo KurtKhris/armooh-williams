@@ -6,10 +6,13 @@ interface RsvpUserEmailProps {
   eventDate?: string;
   eventTime?: string;
   eventLocation?: string;
+  firmEmail: string;
+  firmPhone: string;
 }
 
 export function rsvpUserEmail(data: RsvpUserEmailProps): string {
-  const { firstName, eventTitle, eventDate, eventTime, eventLocation } = data;
+  const { firstName, eventTitle, eventDate, eventTime, eventLocation, firmEmail, firmPhone } = data;
+  const phoneHref = firmPhone.replace(/[^\d+]/g, "");
 
   const content = `
     <!-- Heading -->
@@ -73,8 +76,8 @@ export function rsvpUserEmail(data: RsvpUserEmailProps): string {
     <div style="background:#f8fafc;border:1px solid #e4eaed;border-radius:10px;padding:16px 20px;margin-bottom:32px;">
       <p style="color:#6b7c85;font-size:12px;margin:0;line-height:1.7;">
         If you need to cancel or modify your registration, or have any questions, please don't hesitate to reach out to us at
-        <a href="mailto:info@armooh-williams.com" style="color:#ef4b43;font-weight:600;text-decoration:none;">info@armooh-williams.com</a>
-        or call <a href="tel:+17032204504" style="color:#0d3845;font-weight:600;text-decoration:none;">+1 (703) 220-4504</a>.
+        <a href="mailto:${firmEmail}" style="color:#ef4b43;font-weight:600;text-decoration:none;">${firmEmail}</a>
+        or call <a href="tel:${phoneHref}" style="color:#0d3845;font-weight:600;text-decoration:none;">${firmPhone}</a>.
       </p>
     </div>
 
