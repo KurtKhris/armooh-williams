@@ -36,10 +36,7 @@ export default function NotFound() {
               Back to Home
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
-            <GoogleCalendarButton
-              label="Schedule a Consultation"
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 border border-white/20 hover:border-white/40 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200"
-            />
+            <GoogleCalendarButton label="Schedule a Consultation" />
           </div>
         </div>
       </main>
