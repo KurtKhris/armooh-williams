@@ -87,8 +87,10 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.22 }}
           className="font-body text-white/60 text-sm sm:text-[0.95rem] mb-8 tracking-wide"
         >
+          {/* hidden — content preserved, not deleted
           Immigration &amp; Global Mobility
           <span className="mx-3 text-white/25">·</span>
+          */}
           White Collar Defense &amp; Sanctions
           <span className="mx-3 text-white/25">·</span>
           Trusts &amp; Corporate Services

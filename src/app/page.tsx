@@ -16,12 +16,16 @@ import Stats from "@/components/sections/Stats";
 export const revalidate = 60; // ISR: revalidate in background every 60 seconds
 
 export default async function HomePage() {
-  const areas = await db
+  const allAreas = await db
     .select()
     .from(practiceAreas)
     .where(eq(practiceAreas.published, true))
     .orderBy(asc(practiceAreas.sortOrder), asc(practiceAreas.createdAt))
     .catch(() => []);
+
+  // Immigration practice area hidden from the homepage only — row stays published
+  // and still shows on /capabilities and its own /capabilities/[slug] page.
+  const areas = allAreas.filter((a) => !a.title.toLowerCase().includes("immigration"));
 
   return (
     <>

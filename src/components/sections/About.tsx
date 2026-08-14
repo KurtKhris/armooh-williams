@@ -50,7 +50,7 @@ export default function About() {
             </p>
 
             <p className="font-body text-brand-slate text-base leading-relaxed mb-10">
-              These challenges are rarely isolated. An immigration matter can affect a company&rsquo;s growth. A regulatory inquiry can impact a hard-earned reputation. A corporate or trust decision can shape a family&rsquo;s future for generations. We help clients evaluate risk, make informed decisions, and move forward with confidence.
+              These challenges are rarely isolated. {/* An immigration matter can affect a company&rsquo;s growth. — hidden, not deleted */} A regulatory inquiry can impact a hard-earned reputation. A corporate or trust decision can shape a family&rsquo;s future for generations. We help clients evaluate risk, make informed decisions, and move forward with confidence.
             </p>
 
             <p className="font-body text-brand-slate text-base leading-relaxed">
