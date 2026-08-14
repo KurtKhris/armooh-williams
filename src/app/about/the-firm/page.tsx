@@ -3,7 +3,7 @@ import Footer from "@/components/layout/Footer";
 import { WhatsAppButton, ScrollToTop, Toast } from "@/components/ui/FloatingWidgets";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+// import { ArrowRight } from "lucide-react"; // unused while "Meet Joyce Williams" link is hidden
 import GoogleCalendarButton from "@/components/ui/GoogleCalendarButton";
 import type { Metadata } from "next";
 
@@ -223,6 +223,7 @@ export default function TheFirmPage() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <GoogleCalendarButton label="Schedule a Consultation" />
+              {/* hidden — profile temporarily unpublished
               <Link
                 href="/people"
                 className="inline-flex items-center gap-2.5 px-7 py-3.5 border border-white/20 hover:border-white/40 text-white font-body font-semibold rounded-xl text-sm transition-colors duration-200 group"
@@ -230,6 +231,7 @@ export default function TheFirmPage() {
                 Meet Joyce Williams
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-200" />
               </Link>
+              */}
             </div>
           </div>
         </section>

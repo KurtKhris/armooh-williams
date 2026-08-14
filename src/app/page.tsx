@@ -11,7 +11,7 @@ import { db } from "@/lib/db";
 import { practiceAreas } from "@/lib/schema";
 import { eq, asc } from "drizzle-orm";
 import Stats from "@/components/sections/Stats";
-import FounderBio from "@/components/sections/FounderBio";
+// import FounderBio from "@/components/sections/FounderBio"; // hidden — profile temporarily unpublished
 
 export const revalidate = 60; // ISR: revalidate in background every 60 seconds
 
@@ -31,7 +31,7 @@ export default async function HomePage() {
         <About />
         <PracticeAreas areas={areas} />
         <Stats />
-        <FounderBio />
+        {/* <FounderBio /> hidden — profile temporarily unpublished */}
         <Testimonials />
         <BlogPreview />
         <ClientsMarquee />

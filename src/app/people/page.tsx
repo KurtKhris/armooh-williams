@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import GoogleCalendarButton from "@/components/ui/GoogleCalendarButton";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "People | Joyce Williams, Esq. | Armooh-Williams, PLLC",
@@ -78,6 +79,8 @@ const bioParagraphs = [
 ];
 
 export default function PeoplePage() {
+  // Profile temporarily hidden from public site — content preserved below, not deleted.
+  notFound();
   return (
     <>
       <Navbar />

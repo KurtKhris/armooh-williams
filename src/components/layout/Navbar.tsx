@@ -18,7 +18,7 @@ const aboutItems = [
 const navLinks = [
   { label: "Home",         href: "/",            dropdown: null },
   { label: "Capabilities", href: "/capabilities", dropdown: null },
-  { label: "People",       href: "/people",       dropdown: null },
+  // { label: "People",       href: "/people",       dropdown: null }, // hidden — profile temporarily unpublished
   { label: "Insights",     href: "/insights",     dropdown: null },
   { label: "About",        href: null,            dropdown: aboutItems },
 ];
