@@ -7,7 +7,8 @@ import GoogleCalendarButton from "@/components/ui/GoogleCalendarButton";
 
 const whyItems = [
   "Trusted counsel to businesses, executives, investors, entrepreneurs, and private clients",
-  "Experience across immigration, sanctions, regulatory, corporate, and trust matters",
+  // "Experience across immigration, sanctions, regulatory, corporate, and trust matters", // hidden, not deleted
+  "Experience across sanctions, regulatory, corporate, and trust matters",
   "Practical advice that considers legal, business, family, and reputational objectives",
   "Responsive, partner-led service",
   "Discreet handling of sensitive and high stakes matters",
@@ -38,7 +39,8 @@ export default function About() {
 
             <h2 className="font-heading text-4xl sm:text-5xl font-semibold text-brand-dark leading-[1.1] mb-6">
               Strategic Counsel{" "}
-              <span className="text-teal-800">When Immigration, Business, and Reputation Are at Stake</span>
+              {/* hidden, not deleted — original: "When Immigration, Business, and Reputation Are at Stake" */}
+              <span className="text-teal-800">When Business and Reputation Are at Stake</span>
             </h2>
 
             <p className="font-body text-brand-slate text-base leading-relaxed mb-4">

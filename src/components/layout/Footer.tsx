@@ -14,7 +14,7 @@ const quickLinks = [
 ];
 
 const practiceLinks = [
-  { label: "Global Mobility & Immigration",  href: "/capabilities/global-mobility-immigration" },
+  // { label: "Global Mobility & Immigration",  href: "/capabilities/global-mobility-immigration" }, // hidden, not deleted
   { label: "White Collar Defense & Sanctions",href: "/capabilities/white-collar-defense-sanctions" },
   { label: "Trust & Corporate Services",     href: "/capabilities/trust-corporate-services" },
 ];
@@ -46,7 +46,9 @@ export default function Footer() {
   /* Use DB capabilities if available, else static PDF list */
   const displayCapabilities =
     capabilities.length > 0
-      ? capabilities.map((c) => ({ label: c.title, href: `/capabilities/${c.slug}` }))
+      ? capabilities
+          .filter((c) => !c.title.toLowerCase().includes("immigration")) // hidden, not deleted
+          .map((c) => ({ label: c.title, href: `/capabilities/${c.slug}` }))
       : practiceLinks;
 
   return (
